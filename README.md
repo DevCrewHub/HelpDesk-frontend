@@ -1,12 +1,45 @@
-# React + Vite
+# HelpDesk Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the frontend for the **HelpDesk Pro** project, built with [React](https://react.dev/) and [Vite](https://vitejs.dev/).
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Tech Stack
 
-## Expanding the ESLint configuration
+- [React](https://react.dev/)
+- [Vite](https://vitejs.dev/)
+- [Axios](https://axios-http.com/) for API calls
+- [React Router](https://reactrouter.com/) for routing
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🛠️ Project Setup
+
+### 1️⃣ Clone the Repository
+
+```bash
+git clone https://github.com/DevCrewHub/helpDesk-frontend.git
+cd helpDesk-frontend
+```
+### 2️⃣ Install Dependencies
+
+```bash
+npm install
+```
+
+### 3️⃣ Run the Development Server
+
+```bash
+npm run dev
+```
+
+The app will be available at:
+http://localhost:5173
+
+### Contribution Guidelines
+
+1. Fork the repository
+2. Create a new branch (git checkout -b feature/your-feature)
+3. Commit your changes (git commit -am 'Add new feature')
+4. Push to the branch (git push origin feature/your-feature)
+5. Open a Pull Request
