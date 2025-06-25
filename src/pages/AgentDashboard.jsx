@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Searchbar from "../components/Searchbar";
 import TicketTable from "../components/TicketTable";
+import Sidebar from "../components/Sidebar";
 
 const AgentDashboard = () => {
   const [query, setQuery] = useState("");
@@ -17,10 +18,16 @@ const AgentDashboard = () => {
   );
 
   return (
-    <div className="p-6 bg-gray-100 min-h-screen">
-      <h1 className="text-2xl font-bold mb-4">Agent Dashboard</h1>
-      <Searchbar query={query} setQuery={setQuery} />
-      <TicketTable tickets={filteredTickets} />
+    <div className="flex bg-gray-100 min-h-screen">
+      <Sidebar />
+      
+      <div className="flex-grow p-6">
+        <div className="-mx-6 border-b border-gray-300 mb-4">
+          <h1 className="text-2xl font-bold pb-2 px-6">Tickets</h1>
+        </div>
+        <Searchbar query={query} setQuery={setQuery} />
+        <TicketTable tickets={filteredTickets} />
+      </div>
     </div>
   );
 };
