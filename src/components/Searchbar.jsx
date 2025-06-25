@@ -15,10 +15,10 @@ const Searchbar = ({ query, setQuery }) => {
           className="flex-grow px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
-      <button className="flex items-center justify-center px-4 py-2 bg-blue-500 text-white rounded-r cursor-pointer"
+      <button className="flex items-center justify-center px-4 bg-blue-500 text-white rounded-r cursor-pointer"
       onClick={() => setQuery(temp)}
       >
-        <AiOutlineSearch />
+        <AiOutlineSearch size={20}/>
       </button>
     </div>
   );
