@@ -12,9 +12,9 @@ const TicketView = () => {
       {/* Middle Section - Conversation */}
         <div className="flex flex-grow flex-col justify-between px-6 py-2 bg-gray-50">
           <div>
-            <div className="text-2xl mb-4 border-b border-gray-300 -mx-6">
+            <div className="text-2xl -mx-6 border-b border-gray-300 bg-gray-50 mt-2 pb-2 mb-6">
               <div className="px-6 pb-2">
-              <span className="hover:underline cursor-pointer " onClick={() => navigate('/')}>Tickets</span> / <span className="font-medium">Welcome to Helpdesk</span>
+              <span className="hover:underline cursor-pointer " onClick={() => navigate('/tickets')}>Tickets</span> / <span className="font-medium">Welcome to Helpdesk</span>
               </div>
             </div>
 
