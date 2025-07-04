@@ -1,95 +1,84 @@
 import { useState, useRef } from "react";
-import { FaHome, FaTicketAlt, FaUser, FaSignOutAlt, FaTimes, FaBars } from "react-icons/fa";
-import { FaAngleRight } from "react-icons/fa6";
+import { FaSignOutAlt, FaUserCircle, FaBars } from "react-icons/fa";
+import { GoPlusCircle } from "react-icons/go";
+import { FiFileText } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 import { useClickOutside } from "../hooks/ClickOutside";
 
-const Sidebar = ({ isOpenProp, setIsOpenProp }) => {
-  // Allow external control OR fallback to internal state
-  const [internalOpen, setInternalOpen] = useState(true);
-  const isOpen = isOpenProp !== undefined ? isOpenProp : internalOpen;
-  const setIsOpen = setIsOpenProp || setInternalOpen;
-  const [tickOpen, setTickOpen] = useState(false);
-  const flyoutRef = useRef();
-  const triggerRef = useRef();
+const Sidebar = () => {
+  const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState(true);
+  const sidebarRef = useRef(null);
 
-  useClickOutside(flyoutRef, () => setTickOpen(false), triggerRef, isOpen);
+  useClickOutside(sidebarRef, () => setIsOpen(false)); // Collapses sidebar if clicked outside (optional)
+
+  const fullName = localStorage.getItem("fullName") || "User";
+
+  const handleCreateTicket = () => navigate("/create-ticket");
+  const handleViewTickets = () => navigate("/tickets");
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate("/login");
+  };
 
   return (
-    <div className={`h-screen text-sm bg-orange-900 text-white shadow-lg px-4 pb-4 flex flex-col transition-all duration-300 ${isOpen ? "w-56" : "w-16"}`}>
-      
-      <div className="h-14 flex items-center justify-between">
-        <h2 className={`text-xl font-bold transition-all duration-300 ${isOpen ? "opacity-100 translate-x-0" : "opacity-0 hidden"}`}>
-          HelpDesk
-        </h2>
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="text-white px-2 py-4 hover:bg-orange-950 hover:rounded-md transform transition-transform duration-300 cursor-pointer"
-        >
-          {isOpen ? <FaTimes className="min-w-[20px] min-h-[20px]" /> : <FaBars className="min-w-[16px] min-h-[16px]" />}
-        </button>
-      </div>
-
-      <nav className="relative flex flex-col flex-grow">
-        
-        {/* Dashboard */}
-        <a href="#" className="h-14 flex items-center px-2 gap-3 hover:bg-orange-950 hover:rounded-md transition-all">
-          <FaHome className="min-w-[16px] min-h-[16px]" />
-          {isOpen && <span className="transition-opacity duration-300">Dashboard</span>}
-        </a>
-        
-        {/* Tickets */}
-        <div className="relative">
-          <div 
-            ref={triggerRef}
-            onClick={(e) => { e.stopPropagation(); setTickOpen(!tickOpen); }}
-            className="h-14 flex items-center px-2 gap-3 hover:bg-orange-950 hover:rounded-md transition-all cursor-pointer"
-          >
-            <FaTicketAlt className="min-w-[16px] min-h-[16px]" />
-            {isOpen && <span className="transition-opacity duration-300">Tickets</span>}
-          </div>
-        
-          {/* Dropdown when expanded */}
-          {tickOpen && isOpen && (
-            <div className="flex flex-col pl-2 space-y-1 py-2">
-              <div className="flex items-center gap-2 hover:bg-orange-950 hover:rounded-md px-2 py-1 cursor-pointer">
-                <FaAngleRight />
-                <FaTicketAlt className="min-w-[16px] min-h-[16px]" />
-                <div>Assigned to Me</div>
-              </div>
-              <div className="flex items-center gap-2 hover:bg-orange-950 hover:rounded-md px-2 py-1 cursor-pointer">
-                <FaAngleRight />
-                <FaTicketAlt className="min-w-[16px] min-h-[16px]" />
-                <div>All Tickets</div>
-              </div>
-            </div>
-          )}
-      
-          {/* Flyout when collapsed */}
-          {!isOpen && tickOpen && (
-            <div 
-              ref={flyoutRef}
-              className="absolute left-full top-0 ml-2 bg-orange-800 text-white border border-orange-500 rounded shadow w-36 z-10"
-            >
-              <div className="hover:bg-orange-900 px-2 py-1 cursor-pointer">Assigned to Me</div>
-              <div className="hover:bg-orange-900 px-2 py-1 cursor-pointer">All Tickets</div>
-            </div>
-          )}
-        </div>
-        
-        {/* Profile */}
-        <a href="#" className="h-14 flex items-center px-2 gap-3 hover:bg-orange-950 hover:rounded-md transition-all">
-          <FaUser className="min-w-[16px] min-h-[16px]" />
-          {isOpen && <span className="transition-opacity duration-300">Profile</span>}
-        </a>
-        
-      </nav>
-
-      <button className="h-14 flex items-center space-x-2 px-[6px] py-4 hover:bg-orange-950 hover:rounded-md transition-all mt-8 cursor-pointer">
-        <FaSignOutAlt className="min-w-[16px] min-h-[16px]" />
-        <span className={`transition-opacity duration-300 ${isOpen ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-0"}`}>
-          Logout
-        </span>
+    <div className="flex">
+      {/* Sidebar Toggle for Mobile */}
+      <button
+        className="md:hidden p-2 m-2 text-gray-600 hover:text-indigo-600"
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        <FaBars className="w-6 h-6" />
       </button>
+
+      {/* Sidebar */}
+      {isOpen && (
+        <aside
+          ref={sidebarRef}
+          className="w-64 bg-white shadow-sm border-r border-gray-200 flex flex-col justify-between p-6 min-h-screen"
+        >
+          <div>
+            <h1
+              className="text-xl font-bold text-indigo-600 mb-8 cursor-pointer"
+              onClick={() => navigate("/dashboard")}
+            >
+              HelpDesk
+            </h1>
+            <nav className="space-y-4">
+              <button
+                onClick={handleCreateTicket}
+                className="flex items-center gap-2 w-full text-left px-3 py-2 rounded-lg text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors"
+              >
+                <GoPlusCircle className="w-5 h-5" />
+                Create Ticket
+              </button>
+
+              <button
+                onClick={handleViewTickets}
+                className="flex items-center gap-2 w-full text-left px-3 py-2 rounded-lg text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors"
+              >
+                <FiFileText className="w-5 h-5" />
+                View Tickets
+              </button>
+            </nav>
+          </div>
+
+          <div className="space-y-3">
+            <div className="flex items-center gap-2 text-gray-600">
+              <FaUserCircle className="w-5 h-5" />
+              <span className="text-sm truncate">{fullName}</span>
+            </div>
+
+            <button
+              onClick={handleLogout}
+              className="flex items-center gap-2 text-sm text-red-500 hover:text-red-600 transition-colors"
+            >
+              <FaSignOutAlt className="w-4 h-4" />
+              Logout
+            </button>
+          </div>
+        </aside>
+      )}
     </div>
   );
 };
