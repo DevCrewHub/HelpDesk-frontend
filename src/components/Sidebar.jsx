@@ -3,14 +3,11 @@ import { FaSignOutAlt, FaUserCircle, FaBars } from "react-icons/fa";
 import { GoPlusCircle } from "react-icons/go";
 import { FiFileText } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
-import { useClickOutside } from "../hooks/ClickOutside";
 
 const Sidebar = () => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(true);
   const sidebarRef = useRef(null);
-
-  useClickOutside(sidebarRef, () => setIsOpen(false)); // Collapses sidebar if clicked outside (optional)
 
   const fullName = localStorage.getItem("fullName") || "User";
 
