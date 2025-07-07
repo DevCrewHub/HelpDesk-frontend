@@ -10,8 +10,10 @@ const Filters = ({ filters, setFilters }) => {
         className="border border-gray-300 text-gray-500 bg-gray-200 px-3 py-[2px] text-sm rounded cursor-pointer"
       >
         <option value="">All Statuses</option>
-        <option value="Open">Open</option>
-        <option value="Closed">Closed</option>
+        <option value="PENDING">Pending</option>
+        <option value="INPROGRESS">Pending</option>
+        <option value="RESOLVED">Pending</option>
+        <option value="CLOSED">Closed</option>
       </select>
 
       {/* Priority Filter */}
@@ -21,9 +23,9 @@ const Filters = ({ filters, setFilters }) => {
         className="border border-gray-300 text-gray-500 bg-gray-200 px-3 py-[2px] text-sm rounded cursor-pointer"
       >
         <option value="">All Priorities</option>
-        <option value="High">High</option>
-        <option value="Medium">Medium</option>
-        <option value="Low">Low</option>
+        <option value="HIGH">High</option>
+        <option value="MEDIUM">Medium</option>
+        <option value="LOW">Low</option>
       </select>
     </div>
   );

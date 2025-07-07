@@ -53,7 +53,9 @@ const AuthPage = ({ setIsAuthenticated }) => {
         password: loginData.password,
       });
       localStorage.setItem("token", res.data.jwt);
-      console.log(res);
+      localStorage.setItem("userRole", res.data.userRole);
+      localStorage.setItem("userId", res.data.userId);
+      localStorage.setItem("userName", loginData.username);
       setIsAuthenticated(true);
       navigate("/");
     } catch (err) {

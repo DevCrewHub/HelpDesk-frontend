@@ -11,7 +11,10 @@ const Searchbar = ({ query, setQuery }) => {
           type="text"
           placeholder="Search tickets..."
           value={temp}
-          onChange={(e) => setTemp(e.target.value)}
+          onChange={(e) => {
+            setTemp(e.target.value);
+            if(!e.target.value) setQuery("");
+          }}
           className="flex-grow px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
