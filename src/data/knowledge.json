@@ -1,0 +1,252 @@
+[
+  {
+    "id": 1,
+    "question": "How do I register a new account?",
+    "answer": "Click the 'Register' button on the login page, enter your details, and submit the form. Make sure to use a valid email address as you may need it for account verification.",
+    "category": "Account Management",
+    "tags": ["registration", "account", "signup"],
+    "popularity": 95,
+    "lastUpdated": "2024-01-15",
+    "difficulty": "beginner"
+  },
+  {
+    "id": 2,
+    "question": "What information do I need to register?",
+    "answer": "You'll need to provide your full name, email address, phone number, username, and a strong password. Ensure your password contains at least 8 characters with a mix of letters, numbers, and special characters.",
+    "category": "Account Management",
+    "tags": ["registration", "requirements", "password"],
+    "popularity": 88,
+    "lastUpdated": "2024-01-10",
+    "difficulty": "beginner"
+  },
+  {
+    "id": 3,
+    "question": "How do I log in to the system?",
+    "answer": "Navigate to the login page, enter your username and password, and click on the 'Login' button. If you're having trouble, make sure your caps lock is off and you're using the correct credentials.",
+    "category": "Account Management",
+    "tags": ["login", "authentication", "access"],
+    "popularity": 92,
+    "lastUpdated": "2024-01-12",
+    "difficulty": "beginner"
+  },
+  {
+    "id": 4,
+    "question": "I forgot my password. How do I recover it?",
+    "answer": "Password recovery is currently not supported through the automated system. Please contact an admin or support team at support@example.com for immediate assistance with password reset.",
+    "category": "Account Management",
+    "tags": ["password", "recovery", "reset", "support"],
+    "popularity": 85,
+    "lastUpdated": "2024-01-08",
+    "difficulty": "intermediate"
+  },
+  {
+    "id": 5,
+    "question": "How can I change my password?",
+    "answer": "This feature is not available yet in the user interface. You'll need to contact an administrator at support@example.com for password updates. We're working on implementing self-service password changes.",
+    "category": "Account Management",
+    "tags": ["password", "change", "security"],
+    "popularity": 78,
+    "lastUpdated": "2024-01-05",
+    "difficulty": "intermediate"
+  },
+  {
+    "id": 6,
+    "question": "How do I create a support ticket?",
+    "answer": "After logging in, navigate to the 'Create Ticket' page from the main menu. Fill in all required fields including subject, description, and priority level, then submit the form. You'll receive a confirmation with your ticket number.",
+    "category": "Support Tickets",
+    "tags": ["tickets", "support", "create", "help"],
+    "popularity": 90,
+    "lastUpdated": "2024-01-18",
+    "difficulty": "beginner"
+  },
+  {
+    "id": 7,
+    "question": "What details are required in a ticket?",
+    "answer": "Include a clear, descriptive subject line, detailed description of the issue, priority level (Low, Medium, High, Urgent), and any relevant screenshots or error messages. The more details you provide, the faster we can resolve your issue.",
+    "category": "Support Tickets",
+    "tags": ["tickets", "requirements", "details"],
+    "popularity": 82,
+    "lastUpdated": "2024-01-16",
+    "difficulty": "beginner"
+  },
+  {
+    "id": 8,
+    "question": "Can I view the tickets I submitted?",
+    "answer": "Yes. Navigate to the 'All Tickets' section after login to view all your submitted tickets. You can filter by status, date, or priority to find specific tickets quickly.",
+    "category": "Support Tickets",
+    "tags": ["tickets", "view", "history", "tracking"],
+    "popularity": 87,
+    "lastUpdated": "2024-01-14",
+    "difficulty": "beginner"
+  },
+  {
+    "id": 9,
+    "question": "How do I check the status of my ticket?",
+    "answer": "Open the ticket from 'All Tickets' section. You'll see its current status: 'Open' (awaiting review), 'In Progress' (being worked on), 'Pending' (waiting for your response), or 'Resolved' (completed).",
+    "category": "Support Tickets",
+    "tags": ["status", "tracking", "progress"],
+    "popularity": 89,
+    "lastUpdated": "2024-01-17",
+    "difficulty": "beginner"
+  },
+  {
+    "id": 10,
+    "question": "What do the ticket statuses mean?",
+    "answer": "'Open' means newly created and awaiting assignment, 'In Progress' means actively being worked on by an agent, 'Pending' means waiting for additional information from you, and 'Resolved' means the issue has been completed.",
+    "category": "Support Tickets",
+    "tags": ["status", "definitions", "workflow"],
+    "popularity": 75,
+    "lastUpdated": "2024-01-13",
+    "difficulty": "intermediate"
+  },
+  {
+    "id": 11,
+    "question": "Can I delete a ticket?",
+    "answer": "Ticket deletion is restricted to maintain audit trails and support quality. If you need to cancel or modify a ticket, please contact the support team or add a comment to the existing ticket.",
+    "category": "Support Tickets",
+    "tags": ["delete", "modify", "cancel"],
+    "popularity": 65,
+    "lastUpdated": "2024-01-11",
+    "difficulty": "intermediate"
+  },
+  {
+    "id": 12,
+    "question": "Who can see my submitted tickets?",
+    "answer": "Only you (the ticket creator), assigned support agents, and system administrators have access to your ticket details. Your privacy and confidentiality are protected.",
+    "category": "Privacy & Security",
+    "tags": ["privacy", "access", "security", "confidentiality"],
+    "popularity": 72,
+    "lastUpdated": "2024-01-09",
+    "difficulty": "beginner"
+  },
+  {
+    "id": 13,
+    "question": "Can I assign a ticket to an agent?",
+    "answer": "No, tickets are automatically assigned by the system based on agent availability and expertise, or manually assigned by administrators to ensure optimal resource allocation.",
+    "category": "Support Tickets",
+    "tags": ["assignment", "agents", "workflow"],
+    "popularity": 58,
+    "lastUpdated": "2024-01-07",
+    "difficulty": "intermediate"
+  },
+  {
+    "id": 14,
+    "question": "What roles are supported in the system?",
+    "answer": "The system supports three main roles: Customer (default for all registered users), Agent (for support staff with ticket management capabilities), and Admin (full system control and user management).",
+    "category": "System Information",
+    "tags": ["roles", "permissions", "access levels"],
+    "popularity": 68,
+    "lastUpdated": "2024-01-06",
+    "difficulty": "intermediate"
+  },
+  {
+    "id": 15,
+    "question": "I registered, but can't log in. What do I do?",
+    "answer": "First, verify your username and password are correct. Check if caps lock is on. Clear your browser cache and cookies. If the problem persists, contact support at support@example.com with your username (never share your password).",
+    "category": "Troubleshooting",
+    "tags": ["login issues", "troubleshooting", "access problems"],
+    "popularity": 83,
+    "lastUpdated": "2024-01-19",
+    "difficulty": "intermediate"
+  },
+  {
+    "id": 16,
+    "question": "Why is my ticket not yet resolved?",
+    "answer": "Tickets are prioritized based on urgency and complexity. High-priority issues are addressed first. Response times vary: Urgent (2-4 hours), High (4-8 hours), Medium (1-2 days), Low (2-5 days). Complex issues may take longer to investigate and resolve.",
+    "category": "Support Tickets",
+    "tags": ["resolution time", "priority", "expectations"],
+    "popularity": 76,
+    "lastUpdated": "2024-01-16",
+    "difficulty": "beginner"
+  },
+  {
+    "id": 17,
+    "question": "Can I upload images with my ticket?",
+    "answer": "Image upload functionality is currently under development. For now, you can describe the issue in detail or include links to screenshots hosted on external services. This feature will be available soon.",
+    "category": "System Features",
+    "tags": ["attachments", "images", "upcoming features"],
+    "popularity": 71,
+    "lastUpdated": "2024-01-15",
+    "difficulty": "beginner"
+  },
+  {
+    "id": 18,
+    "question": "Is there a mobile version of the site?",
+    "answer": "Yes! The platform features a fully responsive design that works seamlessly on mobile browsers, tablets, and desktop computers. No separate mobile app is needed - just use your mobile browser.",
+    "category": "System Features",
+    "tags": ["mobile", "responsive", "accessibility"],
+    "popularity": 79,
+    "lastUpdated": "2024-01-18",
+    "difficulty": "beginner"
+  },
+  {
+    "id": 19,
+    "question": "How do I contact the HelpDesk team?",
+    "answer": "You can reach our support team through multiple channels: Email us at support@example.com, call our helpline at 1800-123-456 (Mon-Fri, 9 AM - 6 PM), or create a support ticket through the platform for non-urgent matters.",
+    "category": "Contact Information",
+    "tags": ["contact", "support", "helpdesk", "phone", "email"],
+    "popularity": 86,
+    "lastUpdated": "2024-01-20",
+    "difficulty": "beginner"
+  },
+  {
+    "id": 20,
+    "question": "What technologies are used in this platform?",
+    "answer": "The platform is built with modern technologies: React.js for the frontend interface, Spring Boot with Java for the backend services, MySQL for data storage, and REST APIs for communication. We also use industry-standard security protocols.",
+    "category": "System Information",
+    "tags": ["technology", "architecture", "technical details"],
+    "popularity": 45,
+    "lastUpdated": "2024-01-12",
+    "difficulty": "advanced"
+  },
+  {
+    "id": 21,
+    "question": "How do I update my profile information?",
+    "answer": "Navigate to your user profile section after logging in. You can update your name, email address, and phone number. Some changes may require email verification for security purposes.",
+    "category": "Account Management",
+    "tags": ["profile", "update", "personal information"],
+    "popularity": 73,
+    "lastUpdated": "2024-01-17",
+    "difficulty": "beginner"
+  },
+  {
+    "id": 22,
+    "question": "Is my data secure on this platform?",
+    "answer": "Yes, we implement industry-standard security measures including data encryption, secure authentication, regular security audits, and compliance with data protection regulations. Your personal information is never shared with third parties.",
+    "category": "Privacy & Security",
+    "tags": ["security", "privacy", "data protection", "encryption"],
+    "popularity": 81,
+    "lastUpdated": "2024-01-19",
+    "difficulty": "intermediate"
+  },
+  {
+    "id": 23,
+    "question": "Can I receive email notifications for ticket updates?",
+    "answer": "Email notifications are automatically sent when your ticket status changes or when an agent responds. You can manage notification preferences in your account settings to customize what updates you receive.",
+    "category": "System Features",
+    "tags": ["notifications", "email", "updates", "preferences"],
+    "popularity": 77,
+    "lastUpdated": "2024-01-18",
+    "difficulty": "beginner"
+  },
+  {
+    "id": 24,
+    "question": "What should I do if the system is running slowly?",
+    "answer": "Try clearing your browser cache, disabling browser extensions, checking your internet connection, or switching to a different browser. If the issue persists across multiple devices, contact support as there may be a system-wide issue.",
+    "category": "Troubleshooting",
+    "tags": ["performance", "slow", "browser", "troubleshooting"],
+    "popularity": 69,
+    "lastUpdated": "2024-01-16",
+    "difficulty": "intermediate"
+  },
+  {
+    "id": 25,
+    "question": "Are there any browser requirements?",
+    "answer": "The platform works best on modern browsers: Chrome 90+, Firefox 88+, Safari 14+, and Edge 90+. JavaScript must be enabled, and we recommend keeping your browser updated for the best experience and security.",
+    "category": "System Information",
+    "tags": ["browser", "requirements", "compatibility"],
+    "popularity": 62,
+    "lastUpdated": "2024-01-14",
+    "difficulty": "beginner"
+  }
+]
