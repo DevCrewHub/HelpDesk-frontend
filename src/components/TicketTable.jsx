@@ -3,6 +3,11 @@ import { Navigate, useNavigate } from "react-router-dom";
 
 const TicketTable = ({ tickets }) => {
   const navigate = useNavigate();
+
+  const formatDate = (isoString) => {
+    const date = new Date(isoString).toLocaleDateString('en-CA');
+    return date.split("T")[0]; // Returns YYYY-MM-DD
+  };
   
   return (
     <table className="w-full bg-white shadow rounded">
@@ -12,7 +17,7 @@ const TicketTable = ({ tickets }) => {
           <th className="p-2 text-left">Title</th>
           <th className="p-2 text-left">Status</th>
           <th className="p-2 text-left">Priority</th>
-          <th className="p-2 text-left">Due Date</th>
+          <th className="p-2 text-left">Created Date</th>
         </tr>
       </thead>
       <tbody>
@@ -25,7 +30,7 @@ const TicketTable = ({ tickets }) => {
               <td className="p-2">{ticket.title}</td>
               <td className="p-2">{ticket.status}</td>
               <td className="p-2">{ticket.priority}</td>
-              <td className="p-2">{ticket.date}</td>
+              <td className="p-2">{formatDate(ticket.createdDate)}</td>
             </tr>
           ))
         ) : (

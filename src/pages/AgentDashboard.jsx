@@ -1,39 +1,41 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Searchbar from "../components/Searchbar";
 import TicketTable from "../components/TicketTable";
 import Sidebar from "../components/Sidebar";
 import Filters from "../components/Filters";
 import Layout from "../layout/SidebarLayout";
-import { FaCheckCircle, FaSpinner, FaTicketAlt, FaUserCheck } from "react-icons/fa";
+import { FaCheckCircle, FaSpinner, FaTicketAlt, FaTimesCircle, FaUserCheck } from "react-icons/fa";
+import api from "../utils/api";
 
 const AgentDashboard = () => {
-  const [query, setQuery] = useState("");
-  const [filters, setFilters] = useState({
-    status: "",
-    priority: "",
-    date: "",
-  });
-  const stats = [
-    { label: 'Total Tickets', count: 120, icon: <FaTicketAlt className="text-blue-500 w-6 h-6" /> },
-    { label: 'Assigned Tickets', count: 45, icon: <FaUserCheck className="text-yellow-500 w-6 h-6" /> },
-    { label: 'In Progress', count: 30, icon: <FaSpinner className="text-orange-500 w-6 h-6 animate-spin" /> },
-    { label: 'Resolved Tickets', count: 40, icon: <FaCheckCircle className="text-green-500 w-6 h-6" /> },
-  ];
+  const [tickets, setTickets] = useState([]);
 
-  const tickets = [
-    { id: 1, title: "Login issue", status: "Open", priority: "High", date: "2025-06-25" },
-    { id: 2, title: "Payment failed", status: "Closed", priority: "Low", date: "2025-06-19" },
-    { id: 3, title: "App crash", status: "Open", priority: "High", date: "2025-07-05" },
-  ];
+  useEffect(() => {
+    fetchtickets();
+  }, []);
 
-  const filteredTickets = tickets.filter((ticket) => {
-    return(
-      (ticket.title.toLowerCase().includes(query.toLowerCase()) ||
-      ticket.id.toString().includes(query)) &&
-      ((filters.status === "" || ticket.status === filters.status) &&
-      (filters.priority === "" || ticket.priority === filters.priority))
-    );
-  });
+  const fetchtickets = async () => {
+    try {
+      const response = await api.get("/customer/ticketsCreated");
+      setTickets(response.data);
+    } catch (error) {
+      console.error("Error fetching ticket tickets:", error);
+    }
+  };
+
+  const total = tickets.length;
+  const pending = tickets.filter(ticket => ticket.status == "PENDING").length;
+  const inProgress = tickets.filter(ticket => ticket.status === "INPROGRESS").length;
+  const resolved = tickets.filter(ticket => ticket.status === "RESOLVED").length;
+  const closed = tickets.filter(ticket => ticket.status === "CLOSED").length;
+
+  const items = [
+    { label: "Total Tickets", count: total, icon: <FaTicketAlt className="text-blue-500 w-6 h-6" /> },
+    { label: "Pending Tickets", count: pending, icon: <FaUserCheck className="text-yellow-500 w-6 h-6" /> },
+    { label: "In Progress Tickets", count: inProgress, icon: <FaSpinner className="text-orange-500 w-6 h-6 animate-spin" /> },
+    { label: "Resolved Tickets", count: resolved, icon: <FaCheckCircle className="text-green-500 w-6 h-6" /> },
+    { label: "Closed Tickets", count: closed, icon: <FaTimesCircle className="text-gray-500 w-6 h-6" /> },
+  ];
 
   return (
     <Layout>
@@ -53,7 +55,7 @@ const AgentDashboard = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 p-4">
-          {stats.map((item, index) => (
+          {items.map((item, index) => (
             <div
               key={index}
               className="bg-white border border-gray-200 shadow-sm rounded-xl p-4 flex flex-col items-center justify-center hover:shadow-md transition-shadow"
