@@ -15,7 +15,7 @@ const Searchbar = ({ query, setQuery }) => {
             setTemp(e.target.value);
             if(!e.target.value) setQuery("");
           }}
-          className="flex-grow px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="flex-grow px-4 py-2 rounded-md text-sm border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
       <button className="flex items-center justify-center px-4 bg-blue-500 text-white rounded-r cursor-pointer"

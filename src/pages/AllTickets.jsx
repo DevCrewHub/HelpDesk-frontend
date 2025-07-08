@@ -14,11 +14,16 @@ const AllTickets = () => {
   const [tickets, setTickets] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  
+  // Detect Role
+  const userRole = localStorage.getItem("userRole");
+  const isAgent = userRole === "AGENT";
 
   useEffect(() => {
     const fetchTickets = async () => {
       try {
-        const res = await api.get("/customer/ticketsCreated");
+        const url = isAgent ? `/agent/tickets` : `/customer/ticketsCreated`;
+        const res = await api.get(url);
         setTickets(res.data);
       } catch (err) {
         setError("Failed to load tickets");
@@ -53,7 +58,9 @@ const AllTickets = () => {
           <>
             <Searchbar query={query} setQuery={setQuery} />
             <Filters filters={filters} setFilters={setFilters} />
-            <TicketTable tickets={filteredTickets} />
+            <div className="w-full overflow-x-auto">
+              <TicketTable tickets={filteredTickets} />
+            </div>
           </>
         )}
       </div>

@@ -10,7 +10,7 @@ const TicketTable = ({ tickets }) => {
   };
   
   return (
-    <table className="w-full bg-white shadow rounded">
+    <table className="min-w-full text-sm text-left bg-white shadow rounded">
       <thead>
         <tr className="bg-gray-200">
           <th className="p-2 text-left">Ticket ID</th>

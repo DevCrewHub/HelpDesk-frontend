@@ -11,8 +11,8 @@ const Filters = ({ filters, setFilters }) => {
       >
         <option value="">All Statuses</option>
         <option value="PENDING">Pending</option>
-        <option value="INPROGRESS">Pending</option>
-        <option value="RESOLVED">Pending</option>
+        <option value="INPROGRESS">In Progress</option>
+        <option value="RESOLVED">Resolved</option>
         <option value="CLOSED">Closed</option>
       </select>
 

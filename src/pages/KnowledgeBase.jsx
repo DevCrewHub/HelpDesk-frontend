@@ -1,6 +1,7 @@
-import React, { useState, useMemo, useRef, useEffect } from 'react'
-import { BookOpen, Search, TrendingUp, Users, Clock, CheckCircle, Star, Calendar, Tag, ChevronDown, ChevronUp } from 'lucide-react'
-import knowledgeData from '../data/knowledge.json'
+import React, { useState, useMemo, useRef, useEffect } from 'react';
+import { BookOpen, Search, TrendingUp, Users, Clock, CheckCircle, Star, Calendar, Tag, ChevronDown, ChevronUp } from 'lucide-react';
+import knowledgeData from '../data/knowledge.json';
+import Layout from '../layout/SidebarLayout';
 
 const KnowledgeBase = () => {
   const [searchTerm, setSearchTerm] = useState('')
@@ -51,6 +52,7 @@ const KnowledgeBase = () => {
   }
 
   return (
+    <Layout>
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
@@ -129,6 +131,7 @@ const KnowledgeBase = () => {
         </div>
       </div>
     </div>
+    </Layout>
   )
 }
 

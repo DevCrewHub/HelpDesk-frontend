@@ -1,8 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import api from '../utils/api';
 import { User, Mail, Lock, Phone, Building, UserPlus, Eye, EyeOff } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { FaArrowLeft } from 'react-icons/fa';
 
 export default function AgentRegistrationPage() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({ userName: '', email: '', password: '', fullName: '', phoneNumber: '', departmentName: 'Finance' });
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -83,9 +86,25 @@ export default function AgentRegistrationPage() {
     </div>
   );
 
+  useEffect(() => {
+    const role = localStorage.getItem("userRole");
+    if (role !== "ADMIN") {
+      navigate("/"); // Redirect non-admin users
+    }
+  }, [navigate]);
+
   return (
     <div className="min-h-screen bg-gray-50 py-8 px-4">
       <div className="max-w-2xl mx-auto">
+        <div className="mb-6">
+          <button
+            onClick={() => navigate('/')}
+            className="text-indigo-600 flex items-center gap-2 mb-4"
+          >
+            <FaArrowLeft className="w-4 h-4" /> Back
+          </button>
+        </div>
+
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-4">
             <UserPlus className="w-8 h-8 text-blue-600" />
