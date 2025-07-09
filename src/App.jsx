@@ -8,6 +8,7 @@ import CreateTicket from "./pages/CreateTicket";
 import KnowledgeBase from "./pages/KnowledgeBase";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import AgentRegistrationPage from "./pages/AgentRegistrationPage";
+import AssignedTickets from "./pages/AssignedTickets";
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
@@ -60,8 +61,15 @@ const App = () => {
           isAuthenticated ? <TicketView /> : <Navigate to="/login" replace />
         } />
 
-        <Route path="/knowledge" element={<KnowledgeBase />} />
-        <Route path="/agentregistration" element={<AgentRegistrationPage />} />
+        <Route path="/knowledge" element={
+          isAuthenticated ? <KnowledgeBase /> : <Navigate to="/login" replace />
+        } />
+        <Route path="/agentregistration" element={
+          isAuthenticated ? <AgentRegistrationPage /> : <Navigate to="/login" replace />
+        } />
+        <Route path="/assigned-tickets" element={
+          isAuthenticated ? <AssignedTickets /> : <Navigate to="/login" replace />
+        } />
 
         <Route path="*" element={<Navigate to={isAuthenticated ? "/" : "/login"} replace />} />
       </Routes>

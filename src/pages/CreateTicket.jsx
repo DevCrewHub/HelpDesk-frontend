@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
 import api from "../utils/api";
@@ -34,6 +34,13 @@ const CreateTicket = () => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    const role = localStorage.getItem("userRole");
+    if(role !== "CUSTOMER"){
+      navigate('/');
+    }
+  }, [navigate]);
 
   return (
     <main className="flex-1 p-8">

@@ -3,6 +3,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import Layout from "../layout/SidebarLayout";
 import api from "../utils/api";
 import CloseTicketButton from "../components/buttons/CloseTicketButton";
+import AssignTicketButton from "../components/buttons/AssignTicketButton";
+import { FaCheck } from "react-icons/fa";
 
 const TicketView = () => {
   const { id } = useParams();
@@ -10,6 +12,7 @@ const TicketView = () => {
   const [ticket, setTicket] = useState(null);
 
   // Detect Role
+  const userName = localStorage.getItem("userName");
   const userRole = localStorage.getItem("userRole");
   const isAgent = userRole === "AGENT";
 
@@ -20,6 +23,10 @@ const TicketView = () => {
     });
   }, [id, isAgent]);
 
+  const fetchTicketDetails = () => {
+    return ticket;
+  }
+
   const reDirect = async () => {
       navigate("/dashboard"); // Redirect
   };
@@ -29,16 +36,34 @@ const TicketView = () => {
     return date.toISOString().split("T")[0]; // Returns YYYY-MM-DD
   };
 
-  const handleStatusChange = (newStatus) => {
-    api.put(`/agent/ticket/${id}/status`, { status: newStatus }).then(() =>
-      setTicket((prev) => ({ ...prev, status: newStatus }))
-    );
+  const handleStatusChange = () => {
+    api.put(`/agent/assigned/tickets/${id}/status`, null, {
+        params: { status: "RESOLVED" }
+    })
+    .then(() => {
+      setTicket((prev) => ({ ...prev, status: newStatus }));
+      alert("Ticket marked as RESOLVED.");
+      navigate('/dashboard');
+    })
+    .catch((error) => {
+      console.error("Error updating status:", error);
+      alert("Failed to update ticket status.");
+    });
   };
 
   const handlePriorityChange = (newPriority) => {
-    api.put(`/agent/ticket/${id}/priority`, { priority: newPriority }).then(() =>
-      setTicket((prev) => ({ ...prev, priority: newPriority }))
-    );
+    api.put(`/agent/assigned/tickets/${id}/priority`, null, {
+        params: { priority: newPriority }
+    })
+    .then(() => {
+      setTicket((prev) => ({ ...prev, priority: newPriority }));
+      alert(`Ticket marked as ${newPriority}`);
+      navigate('/dashboard');
+    })
+    .catch((error) => {
+      console.error("Error updating priority:", error);
+      alert("Failed to update ticket priority.");
+    });
   };
 
   if (!ticket) return <div>Loading...</div>;
@@ -66,16 +91,18 @@ const TicketView = () => {
               <div className="flex gap-2">
                 {isAgent ? (
                   <>
-                    <select
-                      value={ticket.status}
-                      onChange={(e) => handleStatusChange(e.target.value)}
-                      className="bg-gray-200 text-gray-700 border border-gray-300 px-3 py-1 rounded text-sm"
-                    >
-                      <option value="OPEN">Open</option>
-                      <option value="IN_PROGRESS">In Progress</option>
-                      <option value="RESOLVED">Resolved</option>
-                      <option value="CLOSED">Closed</option>
-                    </select>
+                    {ticket.status === "PENDING" && ticket.agentName == null && (
+                      <AssignTicketButton ticketId={ticket.id} onSuccess={fetchTicketDetails} />
+                    )}
+
+                    {userRole === "AGENT" && ticket.status === "INPROGRESS" && ticket.agentName === userName && (
+                      <button
+                        onClick={() => handleStatusChange()}
+                        className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-sm flex items-center"
+                      >
+                        <FaCheck className="mr-1" /> Mark as Resolved
+                      </button>
+                    )}
 
                     <select
                       value={ticket.priority}

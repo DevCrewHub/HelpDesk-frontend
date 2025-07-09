@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { FaSignOutAlt, FaUserCircle, FaBars, FaUser, FaBook, FaUserPlus } from "react-icons/fa";
+import { FaSignOutAlt, FaUserCircle, FaBars, FaUser, FaBook, FaUserPlus, FaUserCheck } from "react-icons/fa";
 import { GoPlusCircle } from "react-icons/go";
 import { FiFileText, FiUser } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
@@ -41,13 +41,23 @@ const Sidebar = () => {
                 DashBoard
               </button>
 
-              <button
-                onClick={handleCreateTicket}
-                className="flex items-center gap-2 w-full text-left px-3 py-2 rounded-lg text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors"
-              >
-                <GoPlusCircle className="w-5 h-5" />
-                Create Ticket
-              </button>
+              {userRole === "CUSTOMER" && (<button
+                  onClick={handleCreateTicket}
+                  className="flex items-center gap-2 w-full text-left px-3 py-2 rounded-lg text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors"
+                >
+                  <GoPlusCircle className="w-5 h-5" />
+                  Create Ticket
+                </button>
+              )}
+
+              {userRole === "AGENT" && (<button
+                  onClick={() => navigate('/assigned-tickets')}
+                  className="flex items-center gap-2 w-full text-left px-3 py-2 rounded-lg text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors"
+                >
+                  <FaUserCheck className="w-5 h-5" />
+                  Assigned To Me
+                </button>
+              )}
 
               <button
                 onClick={handleViewTickets}
