@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
 import { FiFileText, FiUser } from "react-icons/fi";
 import { GoPlusCircle } from "react-icons/go";
-import { FaBook, FaSignOutAlt, FaUserPlus } from "react-icons/fa";
+import { FaBook, FaSignOutAlt, FaUserCheck, FaUserPlus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
 export default function Layout({ children }) {
@@ -38,10 +38,19 @@ export default function Layout({ children }) {
           Dashboard
         </button>
 
-        <button onClick={() => navigate("/create-ticket")} className="flex flex-col items-center text-sm text-gray-700">
-          <GoPlusCircle className="w-5 h-5 mb-1" />
-          Create
-        </button>
+        {userRole === "CUSTOMER" && (
+          <button onClick={() => navigate("/create-ticket")} className="flex flex-col items-center text-sm text-gray-700">
+            <GoPlusCircle className="w-5 h-5 mb-1" />
+            Create
+          </button>
+        )}
+
+        {userRole === "AGENT" && (
+          <button onClick={() => navigate("/assigned-tickets")} className="flex flex-col items-center text-sm text-gray-700">
+            <FaUserCheck className="w-5 h-5 mb-1" />
+            Assigned
+          </button>
+        )}
 
         <button onClick={() => navigate("/tickets")} className="flex flex-col items-center text-sm text-gray-700">
           <FiFileText className="w-5 h-5 mb-1" />

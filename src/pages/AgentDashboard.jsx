@@ -9,6 +9,8 @@ import api from "../utils/api";
 
 const AgentDashboard = () => {
   const [tickets, setTickets] = useState([]);
+  const role = localStorage.getItem("userRole");
+  const isAgent = role === "AGENT";
 
   useEffect(() => {
     fetchtickets();
@@ -16,7 +18,8 @@ const AgentDashboard = () => {
 
   const fetchtickets = async () => {
     try {
-      const response = await api.get("/customer/ticketsCreated");
+      const url = isAgent ? "/agent/tickets" : "/customer/ticketsCreated"
+      const response = await api.get(url);
       setTickets(response.data);
     } catch (error) {
       console.error("Error fetching ticket tickets:", error);
