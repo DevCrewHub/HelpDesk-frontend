@@ -9,12 +9,29 @@ import KnowledgeBase from "./pages/KnowledgeBase";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import AgentRegistrationPage from "./pages/AgentRegistrationPage";
 import AssignedTickets from "./pages/AssignedTickets";
+import AgentListPage from "./pages/admin/AgentListPage";
+import CustomerListPage from "./pages/admin/CustomerListPage";
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
     const token = localStorage.getItem("token");
     return !!token;
   });
+
+  useEffect(() => {
+    const handlePopState = () => {
+      const token = localStorage.getItem("jwt");
+      if (!token) {
+        window.location.reload(); // reload and trigger redirect
+      }
+    };
+  
+    window.addEventListener("popstate", handlePopState);
+  
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+    };
+  }, []);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -69,6 +86,13 @@ const App = () => {
         } />
         <Route path="/assigned-tickets" element={
           isAuthenticated ? <AssignedTickets /> : <Navigate to="/login" replace />
+        } />
+
+        <Route path="/admin/customers" element={
+          isAuthenticated ? <CustomerListPage /> : <Navigate to="/login" replace />
+        }/>
+        <Route path="/admin/agents" element={
+          isAuthenticated ? <AgentListPage /> : <Navigate to="/login" replace />
         } />
 
         <Route path="*" element={<Navigate to={isAuthenticated ? "/" : "/login"} replace />} />

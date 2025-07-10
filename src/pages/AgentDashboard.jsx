@@ -11,6 +11,7 @@ const AgentDashboard = () => {
   const [tickets, setTickets] = useState([]);
   const role = localStorage.getItem("userRole");
   const isAgent = role === "AGENT";
+  const isCustomer = role === "CUSTOMER";
 
   useEffect(() => {
     fetchtickets();
@@ -18,7 +19,7 @@ const AgentDashboard = () => {
 
   const fetchtickets = async () => {
     try {
-      const url = isAgent ? "/agent/tickets" : "/customer/ticketsCreated"
+      const url = isAgent ? "/agent/tickets" : isCustomer ? "/customer/ticketsCreated" : "/admin/tickets";
       const response = await api.get(url);
       setTickets(response.data);
     } catch (error) {

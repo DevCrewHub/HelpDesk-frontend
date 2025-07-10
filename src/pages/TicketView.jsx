@@ -7,18 +7,22 @@ import AssignTicketButton from "../components/buttons/AssignTicketButton";
 import CommentSection from "../components/CommentSection";
 
 import { FaCheck } from "react-icons/fa";
+import AssignAgentModal from "../components/modal/AssignAgentModal";
 
 const TicketView = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [ticket, setTicket] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
   const userName = localStorage.getItem("userName");
   const userRole = localStorage.getItem("userRole");
   const isAgent = userRole === "AGENT";
+  const isCustomer = userRole === "CUSTOMER";
+  const isAdmin = userRole === "ADMIN";
 
   useEffect(() => {
-    const url = isAgent ? `/agent/ticket/${id}` : `/customer/ticket/${id}`;
+    const url = isAgent ? `/agent/ticket/${id}` : isCustomer ? `/customer/ticket/${id}` : `/admin/ticket/${id}`;
     api.get(url).then((res) => {
       setTicket(res.data);
     });
@@ -150,7 +154,7 @@ const TicketView = () => {
                         {ticket.priority}
                       </span>
                       <span>
-                        {ticket.status !== "CLOSED" ? (
+                        {ticket.status !== "CLOSED" && isCustomer ? (
                           <CloseTicketButton
                             ticketId={ticket.id}
                             onSuccess={reDirect}
@@ -158,6 +162,28 @@ const TicketView = () => {
                         ) : (
                           ""
                         )}
+                      </span>
+                      <span>
+                      {
+                        isAdmin && ticket.agentName === null ?
+                        <div>
+                          <button
+                            className="bg-indigo-600 text-white px-2 py-0.5 text-sm rounded hover:bg-indigo-700"
+                            onClick={() => setShowModal(true)}
+                          >
+                            Assign to Agent
+                          </button>
+
+                          {showModal && (
+                            <AssignAgentModal
+                              ticketId={ticket.id}
+                              ticket = {ticket}
+                              onClose={() => setShowModal(false)}
+                            />
+                          )}
+                        </div>
+                        : ""
+                      }
                       </span>
                     </>
                   )}

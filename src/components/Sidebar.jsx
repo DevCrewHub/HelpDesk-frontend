@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { FaSignOutAlt, FaUserCircle, FaBars, FaUser, FaBook, FaUserPlus, FaUserCheck } from "react-icons/fa";
+import { FaSignOutAlt, FaUserCircle, FaBars, FaUser, FaBook, FaUserPlus, FaUserCheck, FaUserTie } from "react-icons/fa";
 import { GoPlusCircle } from "react-icons/go";
 import { FiFileText, FiUser } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
@@ -76,13 +76,30 @@ const Sidebar = () => {
               </button>
 
               {userRole === "ADMIN" && (
+                <>
+                <button
+                  onClick={() => navigate('/admin/customers')}
+                  className="flex items-center gap-2 w-full text-left px-3 py-2 rounded-lg text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors"
+                >
+                  <FaUser className="w-5 h-5" />
+                  View Customers
+                </button>
+            
+                <button
+                  onClick={() => navigate('/admin/agents')}
+                  className="flex items-center gap-2 w-full text-left px-3 py-2 rounded-lg text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors"
+                >
+                  <FaUserTie className="w-5 h-5" />
+                  View Agents
+                </button>
                 <button
                   onClick={() => navigate("/agentregistration")}
                   className="flex items-center gap-2 w-full text-left px-3 py-2 rounded-lg text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors"
                 >
-                  <FaUserPlus className="w-5 h-5 mb-1" />
+                  <FaUserPlus className="w-5 h-5" />
                   Add Agent
                 </button>
+                </>
               )}
             </nav>
           </div>
