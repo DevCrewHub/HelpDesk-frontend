@@ -17,12 +17,13 @@ const AllTickets = () => {
   
   // Detect Role
   const userRole = localStorage.getItem("userRole");
+  const isCustomer = userRole === "CUSTOMER";
   const isAgent = userRole === "AGENT";
 
   useEffect(() => {
     const fetchTickets = async () => {
       try {
-        const url = isAgent ? `/agent/tickets` : `/customer/ticketsCreated`;
+        const url = isCustomer ? `/customer/ticketsCreated` : isAgent ? `/agent/tickets` : '/admin/tickets';
         const res = await api.get(url);
         setTickets(res.data);
       } catch (err) {
