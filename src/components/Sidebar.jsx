@@ -1,12 +1,15 @@
-import { useState, useRef } from "react";
+import { memo, useState, useRef } from "react";
 import { FaSignOutAlt, FaUserCircle, FaBars, FaUser, FaBook, FaUserPlus, FaUserCheck, FaUserTie } from "react-icons/fa";
 import { GoPlusCircle } from "react-icons/go";
 import { FiFileText, FiUser } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
+import { ChevronDown, ChevronRight } from "lucide-react";
+import { MdApartment } from "react-icons/md";
 
 const Sidebar = () => {
   const navigate = useNavigate();
   const sidebarRef = useRef(null);
+  const [adminOpen, setAdminOpen] = useState(true);
 
   const fullName = localStorage.getItem("userName") || "User";
   const userRole = localStorage.getItem("userRole");
@@ -32,12 +35,12 @@ const Sidebar = () => {
             >
               HelpDesk
             </h1>
-            <nav className="space-y-4">
+            <nav className={`space-y-3 ${userRole === "ADMIN" ? "text-sm" : ""}`}>
               <button
                 onClick={() => navigate("/dashboard")}
                 className="flex items-center gap-2 w-full text-left px-3 py-2 rounded-lg text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors"
               >
-                <FiUser className="w-5 h-5" />
+                <FiUser className="w-4 h-4" />
                 DashBoard
               </button>
 
@@ -45,7 +48,7 @@ const Sidebar = () => {
                   onClick={handleCreateTicket}
                   className="flex items-center gap-2 w-full text-left px-3 py-2 rounded-lg text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors"
                 >
-                  <GoPlusCircle className="w-5 h-5" />
+                  <GoPlusCircle className="w-4 h-4" />
                   Create Ticket
                 </button>
               )}
@@ -54,7 +57,7 @@ const Sidebar = () => {
                   onClick={() => navigate('/assigned-tickets')}
                   className="flex items-center gap-2 w-full text-left px-3 py-2 rounded-lg text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors"
                 >
-                  <FaUserCheck className="w-5 h-5" />
+                  <FaUserCheck className="w-4 h-4" />
                   Assigned To Me
                 </button>
               )}
@@ -63,7 +66,7 @@ const Sidebar = () => {
                 onClick={handleViewTickets}
                 className="flex items-center gap-2 w-full text-left px-3 py-2 rounded-lg text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors"
               >
-                <FiFileText className="w-5 h-5" />
+                <FiFileText className="w-4 h-4" />
                 View Tickets
               </button>
 
@@ -71,7 +74,7 @@ const Sidebar = () => {
                 onClick={() => navigate('/knowledge')}
                 className="flex items-center gap-2 w-full text-left px-3 py-2 rounded-lg text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors"
               >
-                <FaBook className="w-5 h-5" />
+                <FaBook className="w-4 h-4" />
                 Knowledge Base
               </button>
 
@@ -81,7 +84,7 @@ const Sidebar = () => {
                   onClick={() => navigate('/admin/customers')}
                   className="flex items-center gap-2 w-full text-left px-3 py-2 rounded-lg text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors"
                 >
-                  <FaUser className="w-5 h-5" />
+                  <FaUser className="w-4 h-4" />
                   View Customers
                 </button>
             
@@ -89,14 +92,23 @@ const Sidebar = () => {
                   onClick={() => navigate('/admin/agents')}
                   className="flex items-center gap-2 w-full text-left px-3 py-2 rounded-lg text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors"
                 >
-                  <FaUserTie className="w-5 h-5" />
+                  <FaUserTie className="w-4 h-4" />
                   View Agents
                 </button>
+
+                <button
+                  onClick={() => navigate('/admin/departments')}
+                  className="flex items-center gap-2 w-full text-left px-3 py-2 rounded-lg text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors"
+                >
+                  <FaUserTie className="w-4 h-4" />
+                  Departments
+                </button>
+
                 <button
                   onClick={() => navigate("/agentregistration")}
                   className="flex items-center gap-2 w-full text-left px-3 py-2 rounded-lg text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors"
                 >
-                  <FaUserPlus className="w-5 h-5" />
+                  <FaUserPlus className="w-4 h-4" />
                   Add Agent
                 </button>
                 </>
@@ -124,4 +136,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default memo(Sidebar);

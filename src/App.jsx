@@ -11,6 +11,7 @@ import AgentRegistrationPage from "./pages/AgentRegistrationPage";
 import AssignedTickets from "./pages/AssignedTickets";
 import AgentListPage from "./pages/admin/AgentListPage";
 import CustomerListPage from "./pages/admin/CustomerListPage";
+import DepartmentPage from "./pages/admin/DepartmentPage";
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
@@ -93,6 +94,9 @@ const App = () => {
         }/>
         <Route path="/admin/agents" element={
           isAuthenticated ? <AgentListPage /> : <Navigate to="/login" replace />
+        } />
+        <Route path="/admin/departments" element={
+          isAuthenticated ? <DepartmentPage /> : <Navigate to="/login" replace />
         } />
 
         <Route path="*" element={<Navigate to={isAuthenticated ? "/" : "/login"} replace />} />

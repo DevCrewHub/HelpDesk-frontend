@@ -4,6 +4,7 @@ import { FiFileText, FiUser } from "react-icons/fi";
 import { GoPlusCircle } from "react-icons/go";
 import { FaBook, FaSignOutAlt, FaUserCheck, FaUserPlus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { MdApartment } from "react-icons/md";
 
 export default function Layout({ children }) {
   const [isOpen, setIsOpen] = useState(() => {
@@ -61,6 +62,16 @@ export default function Layout({ children }) {
           <FaBook className="w-5 h-5 mb-1" />
           Knowledge
         </button>
+
+        {userRole === "ADMIN" && (
+          <button
+            onClick={() => navigate("/admin/departments")}
+            className="flex flex-col items-center text-sm text-gray-700"
+          >
+            <MdApartment className="w-5 h-5 mb-1" />
+            Departments
+          </button>
+        )}
 
         {userRole === "ADMIN" && (
           <button
