@@ -75,7 +75,7 @@ export default function Layout({ children }) {
 
         {userRole === "ADMIN" && (
           <button
-            onClick={() => navigate("/agentregistration")}
+            onClick={() => navigate("/admin/agentregistration")}
             className="flex flex-col items-center text-sm text-gray-700"
           >
             <FaUserPlus className="w-5 h-5 mb-1" />

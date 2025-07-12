@@ -105,7 +105,7 @@ const Sidebar = () => {
                 </button>
 
                 <button
-                  onClick={() => navigate("/agentregistration")}
+                  onClick={() => navigate("/admin/agentregistration")}
                   className="flex items-center gap-2 w-full text-left px-3 py-2 rounded-lg text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors"
                 >
                   <FaUserPlus className="w-4 h-4" />

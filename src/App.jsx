@@ -13,6 +13,9 @@ import AgentListPage from "./pages/admin/AgentListPage";
 import CustomerListPage from "./pages/admin/CustomerListPage";
 import DepartmentPage from "./pages/admin/DepartmentPage";
 
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
     const token = localStorage.getItem("token");
@@ -59,6 +62,7 @@ const App = () => {
 
   return (
     <BrowserRouter>
+     <ToastContainer position="top-right" autoClose={3000} />
       <Routes>
         <Route path="/login" element={<AuthPage setIsAuthenticated={setIsAuthenticated} />} />
         <Route path="/register" element={<AuthPage setIsAuthenticated={setIsAuthenticated} />} />
@@ -82,7 +86,7 @@ const App = () => {
         <Route path="/knowledge" element={
           isAuthenticated ? <KnowledgeBase /> : <Navigate to="/login" replace />
         } />
-        <Route path="/agentregistration" element={
+        <Route path="/admin/agentregistration" element={
           isAuthenticated ? <AgentRegistrationPage /> : <Navigate to="/login" replace />
         } />
         <Route path="/assigned-tickets" element={
