@@ -1,4 +1,4 @@
-import { memo, useState, useRef } from "react";
+import { memo, useState, useRef, useMemo } from "react";
 import { FaSignOutAlt, FaUserCircle, FaBars, FaUser, FaBook, FaUserPlus, FaUserCheck, FaUserTie } from "react-icons/fa";
 import { GoPlusCircle } from "react-icons/go";
 import { FiFileText, FiUser } from "react-icons/fi";
@@ -9,10 +9,9 @@ import { MdApartment } from "react-icons/md";
 const Sidebar = () => {
   const navigate = useNavigate();
   const sidebarRef = useRef(null);
-  const [adminOpen, setAdminOpen] = useState(true);
 
-  const fullName = localStorage.getItem("userName") || "User";
-  const userRole = localStorage.getItem("userRole");
+  const fullName = useMemo(() => localStorage.getItem("userName") || "User", []);
+  const userRole = useMemo(() => localStorage.getItem("userRole"), []);
 
   const handleCreateTicket = () => navigate("/create-ticket");
   const handleViewTickets = () => navigate("/tickets");
@@ -70,6 +69,7 @@ const Sidebar = () => {
                 View Tickets
               </button>
 
+              {userRole === "CUSTOMER" ?
               <button
                 onClick={() => navigate('/knowledge')}
                 className="flex items-center gap-2 w-full text-left px-3 py-2 rounded-lg text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors"
@@ -77,6 +77,7 @@ const Sidebar = () => {
                 <FaBook className="w-4 h-4" />
                 Knowledge Base
               </button>
+              : ""}
 
               {userRole === "ADMIN" && (
                 <>

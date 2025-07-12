@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from "react";
 import './App.css';
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+
 import AuthPage from "./pages/AuthPage";
 import AgentDashboard from "./pages/AgentDashboard";
 import TicketView from "./pages/TicketView";
 import AllTickets from "./pages/AllTickets";
 import CreateTicket from "./pages/CreateTicket";
 import KnowledgeBase from "./pages/KnowledgeBase";
-import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import AgentRegistrationPage from "./pages/AgentRegistrationPage";
 import AssignedTickets from "./pages/AssignedTickets";
 import AgentListPage from "./pages/admin/AgentListPage";
 import CustomerListPage from "./pages/admin/CustomerListPage";
 import DepartmentPage from "./pages/admin/DepartmentPage";
+import SidebarLayout from "./layout/SidebarLayout";
+import ProtectedRoute from "./routes/ProtectedRoute";
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
@@ -23,15 +26,11 @@ const App = () => {
     const handlePopState = () => {
       const token = localStorage.getItem("jwt");
       if (!token) {
-        window.location.reload(); // reload and trigger redirect
+        window.location.reload();
       }
     };
-  
     window.addEventListener("popstate", handlePopState);
-  
-    return () => {
-      window.removeEventListener("popstate", handlePopState);
-    };
+    return () => window.removeEventListener("popstate", handlePopState);
   }, []);
 
   useEffect(() => {
@@ -60,45 +59,74 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
+        {/* Public Routes */}
         <Route path="/login" element={<AuthPage setIsAuthenticated={setIsAuthenticated} />} />
         <Route path="/register" element={<AuthPage setIsAuthenticated={setIsAuthenticated} />} />
 
-        <Route path="/" element={
-          isAuthenticated ? <AgentDashboard /> : <Navigate to="/login" replace />
-        } />
+        {/* Protected Layout Routes */}
+        <Route path="/" element={<SidebarLayout />}>
+          <Route index element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <AgentDashboard />
+            </ProtectedRoute>
+          } />
 
-        <Route path="/create-ticket" element={
-          isAuthenticated ? <CreateTicket /> : <Navigate to="/login" replace />
-        } />
+          <Route path="create-ticket" element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <CreateTicket />
+            </ProtectedRoute>
+          } />
 
-        <Route path="/tickets" element={
-          isAuthenticated ? <AllTickets /> : <Navigate to="/login" replace />
-        } />
+          <Route path="tickets" element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <AllTickets />
+            </ProtectedRoute>
+          } />
 
-        <Route path="/ticket/:id" element={
-          isAuthenticated ? <TicketView /> : <Navigate to="/login" replace />
-        } />
+          <Route path="ticket/:id" element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <TicketView />
+            </ProtectedRoute>
+          } />
 
-        <Route path="/knowledge" element={
-          isAuthenticated ? <KnowledgeBase /> : <Navigate to="/login" replace />
-        } />
-        <Route path="/agentregistration" element={
-          isAuthenticated ? <AgentRegistrationPage /> : <Navigate to="/login" replace />
-        } />
-        <Route path="/assigned-tickets" element={
-          isAuthenticated ? <AssignedTickets /> : <Navigate to="/login" replace />
-        } />
+          <Route path="knowledge" element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <KnowledgeBase />
+            </ProtectedRoute>
+          } />
 
-        <Route path="/admin/customers" element={
-          isAuthenticated ? <CustomerListPage /> : <Navigate to="/login" replace />
-        }/>
-        <Route path="/admin/agents" element={
-          isAuthenticated ? <AgentListPage /> : <Navigate to="/login" replace />
-        } />
-        <Route path="/admin/departments" element={
-          isAuthenticated ? <DepartmentPage /> : <Navigate to="/login" replace />
-        } />
+          <Route path="agentregistration" element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <AgentRegistrationPage />
+            </ProtectedRoute>
+          } />
 
+          <Route path="assigned-tickets" element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <AssignedTickets />
+            </ProtectedRoute>
+          } />
+
+          <Route path="admin/customers" element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <CustomerListPage />
+            </ProtectedRoute>
+          } />
+
+          <Route path="admin/agents" element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <AgentListPage />
+            </ProtectedRoute>
+          } />
+
+          <Route path="admin/departments" element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <DepartmentPage />
+            </ProtectedRoute>
+          } />
+        </Route>
+
+        {/* Fallback */}
         <Route path="*" element={<Navigate to={isAuthenticated ? "/" : "/login"} replace />} />
       </Routes>
     </BrowserRouter>
