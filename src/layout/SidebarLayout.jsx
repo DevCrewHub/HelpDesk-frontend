@@ -1,37 +1,19 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Sidebar from "../components/Sidebar";
 import { FiFileText, FiUser } from "react-icons/fi";
 import { GoPlusCircle } from "react-icons/go";
 import { FaBook, FaSignOutAlt, FaUserCheck, FaUserPlus } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { MdApartment } from "react-icons/md";
 
-export default function Layout({ children }) {
-  const [isOpen, setIsOpen] = useState(() => {
-    const stored = localStorage.getItem("sidebarOpen");
-    return stored === null ? true : stored === "true";
-  });
+const Layout = ({ children }) => {
   const navigate = useNavigate();
-  const userRole = localStorage.getItem("userRole");
-
-  useEffect(() => {
-    const stored = localStorage.getItem("sidebarOpen");
-    if (stored !== null) {
-      setIsOpen(stored === "true");
-    }
-  }, []);
-
-  const toggleSidebar = () => {
-    setIsOpen((prev) => {
-      localStorage.setItem("sidebarOpen", !prev);
-      return !prev;
-    });
-  };
+  const userRole = useMemo(() => localStorage.getItem("userRole"), []);
 
   return (
     <div className="flex min-h-screen overflow-x-hidden">
-      <Sidebar isOpenProp={isOpen} setIsOpenProp={toggleSidebar} />
-      <div className="flex md:ml-64 flex-grow">{children}</div>
+      <Sidebar />
+      <div className="flex md:ml-64 flex-grow"><Outlet /></div>
       {/* Mobile Bottom Nav (below md) */}
       <div className="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 flex justify-around items-center py-2 md:hidden z-40 shadow-sm">
         <button onClick={() => navigate("/dashboard")} className="flex flex-col items-center text-sm text-gray-700">
@@ -95,3 +77,5 @@ export default function Layout({ children }) {
     </div>
   );
 }
+
+export default React.memo(Layout);
