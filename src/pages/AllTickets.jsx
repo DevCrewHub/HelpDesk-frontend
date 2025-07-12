@@ -12,34 +12,105 @@ const AllTickets = () => {
     priority: "",
   });
   const [tickets, setTickets] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);     // For initial load
+  const [searching, setSearching] = useState(false); // For search requests
   const [error, setError] = useState("");
-  
-  // Detect Role
+
   const userRole = localStorage.getItem("userRole");
   const isCustomer = userRole === "CUSTOMER";
   const isAgent = userRole === "AGENT";
+  const isAdmin = userRole === "ADMIN";
 
+  const fetchTickets = async () => {
+    try {
+      setLoading(true);
+      const url = isCustomer
+        ? `/customer/ticketsCreated`
+        : isAgent
+        ? `/agent/tickets`
+        : "/admin/tickets";
+      const res = await api.get(url);
+      setTickets(res.data);
+      setError("");
+    } catch (err) {
+      setError("Failed to load tickets");
+      setTickets([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Initial ticket load (role-based)
   useEffect(() => {
-    const fetchTickets = async () => {
+    // Only fetch default if query is empty
+    if (query === "") {
+      fetchTickets();
+    }
+  }, [query]);
+
+  // Search
+  useEffect(() => {
+    const fetchSearchedTickets = async () => {
+      if (!query.trim()) return;
+
       try {
-        const url = isCustomer ? `/customer/ticketsCreated` : isAgent ? `/agent/tickets` : '/admin/tickets';
+        setSearching(true);
+        const url = isCustomer
+          ? `/customer/tickets/search/${encodeURIComponent(query.trim())}`
+          : isAgent
+          ? `/agent/tickets/search/${encodeURIComponent(query.trim())}`
+          : `/admin/tickets/search/${encodeURIComponent(query.trim())}`;
         const res = await api.get(url);
         setTickets(res.data);
+        setError("");
       } catch (err) {
-        setError("Failed to load tickets");
+        setError("Search failed");
+        setTickets([]);
       } finally {
-        setLoading(false);
+        setSearching(false);
       }
     };
 
-    fetchTickets();
-  }, []);
+    fetchSearchedTickets();
+  }, [query]);
 
+  const fetchFilteredTickets = async (type, value) => {
+    if (!value) return fetchTickets(); // reset filter
+
+    const base = isAdmin
+    ? "/admin/tickets"
+    : isAgent
+    ? "/agent/tickets"
+    : "";
+
+    try {
+      const url = `${base}/${type}/${encodeURIComponent(value)}`;
+      const res = await api.get(url);
+      setTickets(res.data);
+    } catch (err) {
+      console.error("Filter failed", err);
+      setTickets([]);
+    }
+  };
+
+  const handleStatusChange = (status) => {
+    setFilters((prev) => ({ ...prev, status }));
+    fetchFilteredTickets("status", status);
+  };
+
+  const handlePriorityChange = (priority) => {
+    setFilters((prev) => ({ ...prev, priority }));
+    fetchFilteredTickets("priority", priority);
+  };
+
+  const handleDepartmentChange = (department) => {
+    setFilters((prev) => ({ ...prev, department }));
+    fetchFilteredTickets("department", department);
+  };
+
+  // Client-side filter: status + priority
   const filteredTickets = tickets.filter((ticket) => {
     return (
-      (ticket.title.toLowerCase().includes(query.toLowerCase()) ||
-        ticket.id.toString().includes(query)) &&
       (filters.status === "" || ticket.status === filters.status) &&
       (filters.priority === "" || ticket.priority === filters.priority)
     );
@@ -53,14 +124,27 @@ const AllTickets = () => {
         </div>
 
         {error && <p className="text-red-500 mb-4">{error}</p>}
-        {loading ? (
-          <p>Loading tickets...</p>
+
+        <>
+          <Searchbar query={query} setQuery={setQuery} searching={searching} />
+          {isCustomer ? "" : <Filters
+            filters={filters}
+            onStatusChange={handleStatusChange}
+            onPriorityChange={handlePriorityChange}
+            onDepartmentChange={handleDepartmentChange}
+          />}
+        </>
+
+        {(loading || searching) ? (
+          <p className="text-gray-600">{loading ? "Loading tickets..." : "Searching..."}</p>
         ) : (
           <>
-            <Searchbar query={query} setQuery={setQuery} />
-            <Filters filters={filters} setFilters={setFilters} />
             <div className="w-full overflow-x-auto">
-              <TicketTable tickets={filteredTickets} />
+              {filteredTickets.length === 0 ? (
+                <p className="text-gray-500 text-sm mt-4">No tickets match the current filters.</p>
+              ) : (
+                <TicketTable tickets={filteredTickets} />
+              )}
             </div>
           </>
         )}
