@@ -2,8 +2,10 @@ import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { BookOpen, Search, TrendingUp, Users, Clock, CheckCircle, Star, Calendar, Tag, ChevronDown, ChevronUp } from 'lucide-react';
 import knowledgeData from '../data/knowledge.json';
 import Layout from '../layout/SidebarLayout';
+import { useNavigate } from 'react-router-dom';
 
 const KnowledgeBase = () => {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('All')
   const [expandedId, setExpandedId] = useState(null)
@@ -11,6 +13,13 @@ const KnowledgeBase = () => {
   const faqRefs = useRef({})
 
   const categories = [...new Set(knowledgeData.map(faq => faq.category))]
+
+  useEffect(() => {
+    const userRole = localStorage.getItem("userRole");
+    if(userRole !== "CUSTOMER"){
+      navigate('/dashboard');
+    }
+  })
 
   const filteredFAQs = useMemo(() => {
     const list = knowledgeData.filter(faq => {

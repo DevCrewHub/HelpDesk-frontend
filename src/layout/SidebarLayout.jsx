@@ -58,10 +58,11 @@ export default function Layout({ children }) {
           Tickets
         </button>
 
+        {userRole === "CUSTOMER" && 
         <button onClick={() => navigate("/knowledge")} className="flex flex-col items-center text-sm text-gray-700">
           <FaBook className="w-5 h-5 mb-1" />
           Knowledge
-        </button>
+        </button>}
 
         {userRole === "ADMIN" && (
           <button
