@@ -12,7 +12,6 @@ const AgentListPage = () => {
   }, []);
 
   return (
-    <Layout>
       <div className="flex-grow px-6 py-4">
         <div className="-mx-6 border-b border-gray-300 bg-gray-50 mt-2 pb-2 mb-6">
           <h1 className="text-2xl pb-2 px-6">All Agents</h1>
@@ -42,7 +41,6 @@ const AgentListPage = () => {
           )}
         </div>
       </div>
-    </Layout>
   );
 };
 

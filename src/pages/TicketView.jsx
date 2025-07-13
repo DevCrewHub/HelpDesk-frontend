@@ -79,7 +79,6 @@ const TicketView = () => {
   if (!ticket) return <div>Loading...</div>;
 
   return (
-    <Layout>
       <div className="flex flex-grow min-h-screen">
         <div className="flex flex-grow flex-col justify-between px-6 py-2 bg-gray-50">
           <div>
@@ -218,7 +217,6 @@ const TicketView = () => {
           </div>
         </div>
       </div>
-    </Layout>
   );
 };
 
