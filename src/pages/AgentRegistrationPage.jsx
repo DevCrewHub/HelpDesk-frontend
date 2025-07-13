@@ -2,16 +2,26 @@ import { useEffect, useState } from 'react';
 import api from '../utils/api';
 import { User, Mail, Lock, Phone, Building, UserPlus, Eye, EyeOff } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { FaArrowLeft } from 'react-icons/fa';
+import Layout from '../layout/SidebarLayout';
+import { toast } from 'react-toastify';
+
 
 export default function AgentRegistrationPage() {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({ userName: '', email: '', password: '', fullName: '', phoneNumber: '', departmentName: 'Finance' });
+
+  const [formData, setFormData] = useState({
+    userName: '',
+    email: '',
+    password: '',
+    fullName: '',
+    phoneNumber: '',
+    departmentName: '',
+  });
+
+  const [departments, setDepartments] = useState([]);
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
-
-  const departments = ['Finance', 'Marketing', 'Technical', 'Other'];
 
   const handleInputChange = ({ target: { name, value } }) => {
     if (name === 'phoneNumber') {
@@ -50,12 +60,29 @@ export default function AgentRegistrationPage() {
 
     setLoading(true);
     try {
-      const res = await api.post('/admin/register', { ...formData, userRole: 'AGENT' });
-      alert(res.data.message || 'Agent registered successfully!');
-      setFormData({ userName: '', email: '', password: '', fullName: '', phoneNumber: '', departmentName: 'Finance' });
+      const res = await api.post('/admin/register', {
+        ...formData,
+        userRole: 'AGENT',
+      });
+      toast.success(res.data.message || 'Agent registered successfully!');
+      setFormData({
+        userName: '',
+        email: '',
+        password: '',
+        fullName: '',
+        phoneNumber: '',
+        departmentName: departments[0]?.name || '',
+      });
     } catch (err) {
-      const msg = err.response?.data?.message || err.response?.data?.error || 'An unexpected error occurred.';
-      setErrors({ general: err.request ? 'Network error: Unable to connect to server.' : msg });
+      const msg =
+        err.response?.data?.message ||
+        err.response?.data?.error ||
+        'An unexpected error occurred.';
+      setErrors({
+        general: err.request
+          ? 'Network error: Unable to connect to server.'
+          : msg,
+      });
     } finally {
       setLoading(false);
     }
@@ -74,11 +101,16 @@ export default function AgentRegistrationPage() {
           onChange={handleInputChange}
           autoComplete={autoComplete}
           placeholder={`Enter ${label.toLowerCase()}`}
-          className={`w-full pl-10 ${showToggle ? 'pr-12' : 'pr-4'} py-3 border rounded-lg focus:ring-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500 transition-colors ${errors[name] ? 'border-red-500' : 'border-gray-300'}`}
+          className={`w-full pl-10 ${showToggle ? 'pr-12' : 'pr-4'} py-3 border rounded-lg focus:ring-2 focus:outline-none focus:ring-indigo-500 transition-colors ${errors[name] ? 'border-red-500' : 'border-gray-300'}`}
         />
         {showToggle && (
-          <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600" aria-label={showPassword ? 'Hide password' : 'Show password'}>
-            {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+          <button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
+            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+            aria-label={showPassword ? 'Hide password' : 'Show password'}
+          >
+            {showPassword ? <Eye className="w-5 h-5" /> : <EyeOff className="w-5 h-5" />}
           </button>
         )}
       </div>
@@ -89,41 +121,57 @@ export default function AgentRegistrationPage() {
   useEffect(() => {
     const role = localStorage.getItem("userRole");
     if (role !== "ADMIN") {
-      navigate("/"); // Redirect non-admin users
+      navigate("/");
     }
+
+    const fetchDepartments = async () => {
+      try {
+        const response = await api.get("/admin/department");
+        setDepartments(response.data || []);
+        if (response.data.length > 0) {
+          setFormData((prev) => ({
+            ...prev,
+            departmentName: response.data[0].name,
+          }));
+        }
+      } catch (error) {
+        console.error("Failed to fetch departments:", error);
+      }
+    };
+
+    fetchDepartments();
   }, [navigate]);
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8 px-4">
-      <div className="max-w-2xl mx-auto">
-        <div className="mb-6">
-          <button
-            onClick={() => navigate('/')}
-            className="text-indigo-600 flex items-center gap-2 mb-4"
-          >
-            <FaArrowLeft className="w-4 h-4" /> Back
-          </button>
+    <Layout>
+      <div className="flex-grow px-6 py-2">
+        <div className="-mx-6 border-b border-gray-300 bg-gray-50 mt-2 pb-2 mb-6">
+          <h1 className="text-2xl pb-2 px-6 font-semibold text-indigo-700">Register New Agent</h1>
         </div>
 
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-4">
-            <UserPlus className="w-8 h-8 text-blue-600" />
-          </div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Register New Agent</h1>
-          <p className="text-gray-600">Add a new agent to your system</p>
+        <div className="-mx-6 px-6 pb-6 mt-0">
+          <p className="text-base text-gray-600">Add a new agent to your system</p>
         </div>
 
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
+        {/* Form Card */}
+        <div className="max-w-2xl mx-auto bg-white p-6 rounded-xl shadow-md border border-gray-200 overflow-visible">
           <form onSubmit={handleSubmit} className="space-y-6">
-            {errors.general && <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg"><p className="text-red-600 text-sm">{errors.general}</p></div>}
+            {errors.general && (
+              <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg">
+                <p className="text-red-600 text-sm">{errors.general}</p>
+              </div>
+            )}
             {renderInput('Username', 'userName', 'text', User, 'username')}
             {renderInput('Email Address', 'email', 'email', Mail, 'email')}
             {renderInput('Password', 'password', 'password', Lock, 'new-password', true)}
             {renderInput('Full Name', 'fullName', 'text', User, 'name')}
             {renderInput('Phone Number', 'phoneNumber', 'tel', Phone, 'tel')}
 
+            {/* Department */}
             <div>
-              <label htmlFor="departmentName" className="block text-sm font-medium text-gray-700 mb-2">Department</label>
+              <label htmlFor="departmentName" className="block text-sm font-medium text-gray-700 mb-2">
+                Department
+              </label>
               <div className="relative">
                 <Building className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                 <select
@@ -131,40 +179,34 @@ export default function AgentRegistrationPage() {
                   name="departmentName"
                   value={formData.departmentName}
                   onChange={handleInputChange}
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors appearance-none bg-white cursor-pointer"
+                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white cursor-pointer"
                 >
                   {departments.map((dept) => (
-                    <option key={dept} value={dept}>{dept}</option>
+                    <option key={dept.id} value={dept.name}>
+                      {dept.name}
+                    </option>
                   ))}
                 </select>
-                <div className="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
-                  <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
-                </div>
               </div>
             </div>
 
+            {/* Submit */}
             <div className="pt-4">
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors cursor-pointer"
+                className={`w-full text-white font-medium py-2 rounded-lg transition-all duration-300 cursor-pointer ${
+                  loading
+                    ? 'bg-indigo-300 cursor-not-allowed'
+                    : 'bg-indigo-600 hover:bg-indigo-700'
+                }`}
               >
-                {loading ? (
-                  <div className="flex items-center justify-center">
-                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                    Registering...
-                  </div>
-                ) : 'Register Agent'}
+                {loading ? 'Registering...' : 'Register Agent'}
               </button>
             </div>
           </form>
         </div>
       </div>
-    </div>
+    </Layout>
   );
 }

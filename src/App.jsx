@@ -16,6 +16,9 @@ import DepartmentPage from "./pages/admin/DepartmentPage";
 import SidebarLayout from "./layout/SidebarLayout";
 import ProtectedRoute from "./routes/ProtectedRoute";
 
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
     const token = localStorage.getItem("token");
@@ -58,6 +61,7 @@ const App = () => {
 
   return (
     <BrowserRouter>
+     <ToastContainer position="top-right" autoClose={3000} />
       <Routes>
         {/* Public Routes */}
         <Route path="/login" element={<AuthPage setIsAuthenticated={setIsAuthenticated} />} />
