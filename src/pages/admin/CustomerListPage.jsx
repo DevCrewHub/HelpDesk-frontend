@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 
 const CustomerListPage = () => {
   const navigate = useNavigate();
-  const userRole = localStorage.getItem("userrole");
+  const userRole = localStorage.getItem("userRole");
   const [customers, setCustomers] = useState([]);
 
   const fetchCustomers = async () => {
