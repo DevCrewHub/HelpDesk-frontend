@@ -22,7 +22,7 @@ const DepartmentPage = () => {
   };
 
   const navigate = useNavigate();
-  const userRole = localStorage.getItem("userrole");
+  const userRole = localStorage.getItem("userRole");
   
   useEffect(() => {
     if(userRole !== "ADMIN"){
