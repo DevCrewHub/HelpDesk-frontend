@@ -15,6 +15,7 @@ import CustomerListPage from "./pages/admin/CustomerListPage";
 import DepartmentPage from "./pages/admin/DepartmentPage";
 import SidebarLayout from "./layout/SidebarLayout";
 import ProtectedRoute from "./routes/ProtectedRoute";
+import MorePage from "./components/navbar/More";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -126,6 +127,12 @@ const App = () => {
           <Route path="admin/departments" element={
             <ProtectedRoute isAuthenticated={isAuthenticated}>
               <DepartmentPage />
+            </ProtectedRoute>
+          } />
+
+          <Route path="/more" element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <MorePage />
             </ProtectedRoute>
           } />
         </Route>

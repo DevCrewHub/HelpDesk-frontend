@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import api from "../../utils/api";
 import Layout from "../../layout/SidebarLayout";
+import { useNavigate } from "react-router-dom";
 import { Trash2 } from "lucide-react";
 import { toast } from "react-toastify";
 
 const CustomerListPage = () => {
+  const navigate = useNavigate();
+  const userRole = localStorage.getItem("userrole");
   const [customers, setCustomers] = useState([]);
 
   const fetchCustomers = async () => {
@@ -31,11 +34,17 @@ const CustomerListPage = () => {
   useEffect(() => {
     fetchCustomers();
   }, []);
+  
+  useEffect(() => {
+    if(userRole !== "ADMIN"){
+      navigate("/");
+    }
+  }, [navigate]);
 
   return (
     <div className="flex-grow px-6 py-2">
       {/* Page Header */}
-      <div className="-mx-6 border-b border-gray-300 bg-gray-50 mt-2 pb-2 mb-6">
+      <div className="-mx-6 border-b border-gray-300 bg-gradient-to-b from-white to-gray-50 mt-2 pb-2 mb-6">
         <h1 className="text-2xl font-semibold tracking-tight  pb-2 px-6">All Customers</h1>
       </div>
 

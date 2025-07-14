@@ -2,20 +2,21 @@ import React, { useEffect, useMemo, useState } from "react";
 import Sidebar from "../components/Sidebar";
 import { FiFileText, FiUser } from "react-icons/fi";
 import { GoPlusCircle } from "react-icons/go";
-import { FaBook, FaSignOutAlt, FaUserCheck, FaUserPlus } from "react-icons/fa";
+import { FaBars, FaBook, FaHamburger, FaSignOutAlt, FaUserCheck, FaUserPlus } from "react-icons/fa";
 import { Outlet, useNavigate } from "react-router-dom";
-import { MdApartment } from "react-icons/md";
+import { MdApartment, MdMoreHoriz } from "react-icons/md";
+import { HamburgerIcon } from "lucide-react";
 
-const Layout = ({ children }) => {
+const Layout = () => {
   const navigate = useNavigate();
   const userRole = useMemo(() => localStorage.getItem("userRole"), []);
 
   return (
-    <div className="flex min-h-screen overflow-x-hidden">
+    <div className="flex min-h-screen">
       <Sidebar />
-      <div className="flex md:ml-64 flex-grow"><Outlet /></div>
+      <div className="flex md:ml-64 flex-grow pb-16 md:pb-0"><Outlet /></div>
       {/* Mobile Bottom Nav (below md) */}
-      <div className="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 flex justify-around items-center py-2 md:hidden z-40 shadow-sm">
+      <div className="fixed bottom-0 left-0 w-full text-[11px] bg-white border-t border-gray-200 flex justify-around items-center py-2 md:hidden z-40 shadow-sm">
         <button onClick={() => navigate("/dashboard")} className="flex flex-col items-center text-sm text-gray-700">
           <FiUser className="w-5 h-5 mb-1" />
           Dashboard
@@ -47,32 +48,24 @@ const Layout = ({ children }) => {
         </button>}
 
         {userRole === "ADMIN" && (
+          <>
           <button
-            onClick={() => navigate("/admin/departments")}
-            className="flex flex-col items-center text-sm text-gray-700"
-          >
-            <MdApartment className="w-5 h-5 mb-1" />
-            Departments
-          </button>
-        )}
-
-        {userRole === "ADMIN" && (
-          <button
-            onClick={() => navigate("/admin/agentregistration")}
+            onClick={() => navigate("/agentregistration")}
             className="flex flex-col items-center text-sm text-gray-700"
           >
             <FaUserPlus className="w-5 h-5 mb-1" />
             Add Agent
           </button>
-        )}
 
-        <button onClick={() => {
-            localStorage.clear();
-            navigate("/login");
-          }} className="flex flex-col items-center text-sm text-red-500 cursor-pointer">
-          <FaSignOutAlt className="w-5 h-5 mb-1" />
-          Logout
-        </button>
+          <button
+            onClick={() => navigate("/more")}
+            className="flex flex-col items-center text-sm text-gray-700"
+          >
+            <FaBars className="w-5 h-5 mb-1" />
+            More
+          </button>
+          </>
+        )}
       </div>
     </div>
   );

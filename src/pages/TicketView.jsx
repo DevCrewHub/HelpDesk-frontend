@@ -26,14 +26,30 @@ const TicketView = () => {
   const isAdmin = userRole === "ADMIN";
 
   useEffect(() => {
-    const url = isAgent
-      ? `/agent/ticket/${id}`
-      : isCustomer
-      ? `/customer/ticket/${id}`
-      : `/admin/ticket/${id}`;
+    const fetchTicket = async () => {
+      try {
+        const url = isAgent
+          ? `/agent/ticket/${id}`
+          : isCustomer
+          ? `/customer/ticket/${id}`
+          : `/admin/ticket/${id}`;
+      
+        const res = await api.get(url);
+        setTicket(res.data);
+      } catch (err) {
+        console.error("Ticket not found", err);
+        alert("Invalid Ticket");
+        setTicket(null); // Optional: or set an error state
+        navigate("/");
+      }
+    };
+  
+    fetchTicket();
+  }, [id, isAgent, isCustomer]);
 
-    api.get(url).then((res) => setTicket(res.data));
-  }, [id, isAgent]);
+  const fetchTicketDetails = () => {
+    return ticket;
+  };
 
   const formatDate = (isoString) => {
     const date = new Date(isoString);

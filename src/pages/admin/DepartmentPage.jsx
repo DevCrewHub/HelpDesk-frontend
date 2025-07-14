@@ -3,6 +3,7 @@ import Layout from "../../layout/SidebarLayout";
 import DepartmentTable from "../../components/department/DepartmentTable";
 import DepartmentForm from "../../components/department/DepartmentForm";
 import api from "../../utils/api";
+import { useNavigate } from "react-router-dom";
 
 const DepartmentPage = () => {
   const [departments, setDepartments] = useState([]);
@@ -19,6 +20,15 @@ const DepartmentPage = () => {
       setError("Failed to load departments");
     }
   };
+
+  const navigate = useNavigate();
+  const userRole = localStorage.getItem("userrole");
+  
+  useEffect(() => {
+    if(userRole !== "ADMIN"){
+      navigate("/");
+    }
+  }, [navigate]);
 
   useEffect(() => {
     fetchDepartments();
@@ -48,7 +58,7 @@ const DepartmentPage = () => {
   return (
     <div className="flex-grow px-6 py-2">
       {/* Page Header */}
-      <div className="-mx-6 border-b border-gray-300 bg-gray-50 mt-2 pb-2 mb-6">
+      <div className="-mx-6 border-b border-gray-300 bg-gradient-to-b from-white to-gray-50 mt-2 pb-2 mb-6">
         <h1 className="text-2xl font-semibold tracking-tight px-6 pb-2">Departments</h1>
       </div>
 
