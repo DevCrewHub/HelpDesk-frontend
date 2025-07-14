@@ -113,7 +113,7 @@ const AssignedTickets = () => {
 
   return (
       <div className="flex-grow px-6 py-2">
-        <div className="-mx-6 border-b border-gray-300 bg-gray-50 mt-2 pb-2 mb-6">
+        <div className="-mx-6 bg-gradient-to-b from-white to-gray-50 border-b border-gray-300 mt-2 pb-2 mb-6">
           <h1 className="text-2xl pb-2 px-6">Tickets</h1>
         </div>
 

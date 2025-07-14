@@ -21,7 +21,7 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="hidden md:flex fixed top-0 left-0 h-full w-64 z-40">
+    <div className="hidden md:flex overflow-x-hidden fixed top-0 left-0 h-full w-64 z-40">
       {(
         <aside
           ref={sidebarRef}

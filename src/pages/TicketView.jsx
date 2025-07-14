@@ -25,11 +25,26 @@ const TicketView = () => {
   const isAdmin = userRole === "ADMIN";
 
   useEffect(() => {
-    const url = isAgent ? `/agent/ticket/${id}` : isCustomer ? `/customer/ticket/${id}` : `/admin/ticket/${id}`;
-    api.get(url).then((res) => {
-      setTicket(res.data);
-    });
-  }, [id, isAgent]);
+    const fetchTicket = async () => {
+      try {
+        const url = isAgent
+          ? `/agent/ticket/${id}`
+          : isCustomer
+          ? `/customer/ticket/${id}`
+          : `/admin/ticket/${id}`;
+      
+        const res = await api.get(url);
+        setTicket(res.data);
+      } catch (err) {
+        console.error("Ticket not found", err);
+        alert("Invalid Ticket");
+        setTicket(null); // Optional: or set an error state
+        navigate("/");
+      }
+    };
+  
+    fetchTicket();
+  }, [id, isAgent, isCustomer]);
 
   const fetchTicketDetails = () => {
     return ticket;
@@ -80,9 +95,9 @@ const TicketView = () => {
 
   return (
       <div className="flex flex-grow min-h-screen">
-        <div className="flex flex-grow flex-col justify-between px-6 py-2 bg-gray-50">
+        <div className="flex flex-grow flex-col justify-between px-6 py-2">
           <div>
-            <div className="text-2xl -mx-6 border-b border-gray-300 bg-gray-50 mt-2 pb-2 mb-6">
+            <div className="text-2xl -mx-6 border-b border-gray-300 bg-gradient-to-b from-white to-gray-50 mt-2 pb-2 mb-6">
               <div className="px-6 pb-2">
                 <span
                   onClick={() => navigate("/tickets")}
@@ -96,15 +111,12 @@ const TicketView = () => {
 
             {/* Ticket Info Container */}
             <div className="bg-white p-6 rounded-xl shadow mb-6 border border-gray-200">
-              <div className="flex justify-between items-start mb-3">
+              <div className="flex flex-col gap-4 md:flex-row justify-between items-start mb-3">
                 <div>
                   <h1 className="text-xl font-bold text-gray-800">#{ticket.id} {ticket.title}</h1>
-                  <p className="text-sm text-gray-600 mt-2 whitespace-pre-line">
-                    {ticket.description}
-                  </p>
                 </div>
 
-                <div className="flex gap-2">
+                <div className="flex flex-wrap gap-2">
                   {isAgent ? (
                     <>
                       {ticket.status === "PENDING" && ticket.agentName == null && (
@@ -205,7 +217,9 @@ const TicketView = () => {
                   )}
                 </div>
               </div>
-
+              <p className="text-sm text-gray-600 my-2 whitespace-pre-line">
+                {ticket.description}
+              </p>
               <div className="flex flex-wrap gap-4 text-sm text-gray-600">
                 <div><strong>Created:</strong> {formatDate(ticket.createdDate)}</div>
                 <div><strong>Assigned To:</strong> {ticket.agentName || "UnAssigned"}</div>
