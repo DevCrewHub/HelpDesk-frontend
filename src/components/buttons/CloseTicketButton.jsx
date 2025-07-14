@@ -21,7 +21,7 @@ const CloseTicketButton = ({ ticketId, onSuccess }) => {
   return (
     <button 
       onClick={closeTicket}
-      className="flex items-center bg-gray-200 hover:bg-gray-300 text-gray-800 px-3 py-1 rounded text-sm"
+      className="flex items-center bg-gray-200 hover:bg-gray-300 text-gray-800 px-3 py-1 rounded text-sm cursor-pointer"
     >
       <FaTimesCircle className="mr-1" /> Close Ticket
     </button>

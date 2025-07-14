@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import api from '../utils/api';
 import { User, Mail, Lock, Phone, Building, UserPlus, Eye, EyeOff } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import Layout from '../layout/SidebarLayout';
 import { toast } from 'react-toastify';
 
 
@@ -143,10 +142,10 @@ export default function AgentRegistrationPage() {
   }, [navigate]);
 
   return (
-    <Layout>
+    
       <div className="flex-grow px-6 py-2">
         <div className="-mx-6 border-b border-gray-300 bg-gray-50 mt-2 pb-2 mb-6">
-          <h1 className="text-2xl pb-2 px-6 font-semibold text-indigo-700">Register New Agent</h1>
+          <h1 className="text-2xl pb-2 px-6 font-semibold tracking-tight">Register New Agent</h1>
         </div>
 
         <div className="-mx-6 px-6 pb-6 mt-0">
@@ -155,7 +154,7 @@ export default function AgentRegistrationPage() {
 
         {/* Form Card */}
         <div className="max-w-2xl mx-auto bg-white p-6 rounded-xl shadow-md border border-gray-200 overflow-visible">
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6" >
             {errors.general && (
               <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg">
                 <p className="text-red-600 text-sm">{errors.general}</p>
@@ -207,6 +206,6 @@ export default function AgentRegistrationPage() {
           </form>
         </div>
       </div>
-    </Layout>
+    
   );
 }

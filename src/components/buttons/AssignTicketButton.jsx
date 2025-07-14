@@ -16,7 +16,7 @@ const AssignTicketButton = ({ ticketId, onSuccess }) => {
   return (
     <button
       onClick={assignTicket}
-      className="flex items-center bg-blue-100 hover:bg-blue-200 text-blue-800 px-3 py-1 rounded text-sm"
+      className="flex items-center bg-blue-100 hover:bg-blue-200 text-blue-800 px-3 py-1 rounded text-sm cursor-pointer"
     >
       <FaUserPlus className="mr-2" />
       Assign to Me

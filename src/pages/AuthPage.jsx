@@ -5,6 +5,7 @@ import ToggleSwitch from "../components/auth/ToggleSwitch";
 import LoginForm from "../components/auth/LoginForm";
 import RegisterForm from "../components/auth/RegisterForm";
 import api from "../utils/api";
+import { toast } from 'react-toastify';
 
 const AuthPage = ({ setIsAuthenticated }) => {
   const navigate = useNavigate();
@@ -84,7 +85,7 @@ const AuthPage = ({ setIsAuthenticated }) => {
         userRole: "CUSTOMER",
         departmentName: "General Inquiry",
       });
-      alert("Registration successful");
+      toast.success("Registration successful");
       navigate("/login");
     } catch (err) {
       setErrors({ general: "Registration failed" });
@@ -137,7 +138,7 @@ const AuthPage = ({ setIsAuthenticated }) => {
           <div className="mt-6 text-center">
             <p className="text-sm text-gray-600">
               {isLogin ? "Don't have an account? " : "Already have an account? "}
-              <button onClick={() => { clearForms(); navigate(isLogin ? "/register" : "/login"); }} className="text-blue-600 hover:text-blue-700 font-medium transition-colors cursor-pointer">
+              <button onClick={() => { clearForms(); navigate(isLogin ? "/register" : "/login"); }} className="text-indigo-600 hover:text-indigo-700 font-medium transition-colors cursor-pointer">
                 {isLogin ? "Register here" : "Sign in here"}
               </button>
             </p>

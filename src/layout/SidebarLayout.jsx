@@ -69,7 +69,7 @@ const Layout = ({ children }) => {
         <button onClick={() => {
             localStorage.clear();
             navigate("/login");
-          }} className="flex flex-col items-center text-sm text-red-500">
+          }} className="flex flex-col items-center text-sm text-red-500 cursor-pointer">
           <FaSignOutAlt className="w-5 h-5 mb-1" />
           Logout
         </button>

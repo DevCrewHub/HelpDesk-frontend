@@ -51,7 +51,7 @@ const CommentSection = ({ ticketId, ticket }) => {
   return (
     <div className="mt-8">
       <h3 className="font-semibold text-gray-800 text-xl mb-4 flex items-center gap-2">
-        <MessageCircle className="w-5 h-5 text-blue-500" /> Comments
+        <MessageCircle className="w-5 h-5 text-indigo-500" /> Comments
       </h3>
 
       <div className="space-y-4 max-h-72 overflow-y-auto bg-gradient-to-b from-gray-50 to-white border border-gray-300 rounded-xl p-4 shadow-md">
@@ -85,7 +85,7 @@ const CommentSection = ({ ticketId, ticket }) => {
               >
                 <div
                   className={`max-w-[75%] px-4 py-3 rounded-2xl text-sm break-words whitespace-pre-wrap shadow-md transition-all duration-300 ${
-                    isMe ? "bg-blue-500 text-white rounded-br-none" : "bg-gray-100 text-gray-900 rounded-bl-none"
+                    isMe ? "bg-indigo-500 text-white rounded-br-none" : "bg-gray-100 text-gray-900 rounded-bl-none"
                   }`}
                 >
                   <div className="text-xs font-semibold mb-1 flex items-center gap-2">
@@ -124,11 +124,11 @@ const CommentSection = ({ ticketId, ticket }) => {
             value={newComment}
             onChange={(e) => setNewComment(e.target.value)}
             placeholder="Type a message..."
-            className="flex-1 border border-gray-300 bg-white px-4 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-sm"
+            className="flex-1 border border-gray-300 bg-white px-4 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-indigo-600 shadow-sm"
           />
           <button
             onClick={handleAddComment}
-            className="bg-blue-600 text-white px-5 py-2 rounded-full hover:bg-blue-700 transition shadow"
+            className="bg-indigo-600 text-white px-5 py-2 rounded-full hover:bg-indigo-700 transition shadow cursor-pointer"
           >
             Send
           </button>

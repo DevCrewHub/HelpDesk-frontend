@@ -69,10 +69,10 @@ const CreateTicket = () => {
   };
 
   return (
-    <Layout>
+    
       <div className="flex-grow px-6 py-2">
         <div className="-mx-6 border-b border-gray-300 bg-gray-50 mt-2 pb-2 mb-6">
-          <h1 className="text-2xl pb-2 px-6 font-semibold text-indigo-700">Create a New Ticket</h1>
+          <h1 className="text-2xl pb-2 px-6 font-semibold tracking-tight">Create a New Ticket</h1>
         </div>
 
         <div className="-mx-6 px-6 pb-6 mt-0">
@@ -114,7 +114,7 @@ const CreateTicket = () => {
                 name="priority"
                 value={formData.priority}
                 onChange={handleInputChange}
-                className="w-full border border-gray-300 rounded-lg px-4 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full border border-gray-300 rounded-lg px-4 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 cursor-pointer"
               >
                 <option value="LOW">Low</option>
                 <option value="MEDIUM">Medium</option>
@@ -128,7 +128,7 @@ const CreateTicket = () => {
                 name="departmentName"
                 value={formData.departmentName}
                 onChange={handleInputChange}
-                className="w-full border border-gray-300 rounded-lg px-4 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full border border-gray-300 rounded-lg px-4 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 cursor-pointer"
               >
                 {departments.map((dept) => (
                   <option key={dept.id} value={dept.name}>
@@ -142,7 +142,7 @@ const CreateTicket = () => {
               <button
                 onClick={handleFormSubmit}
                 disabled={loading}
-                className={`w-full text-white font-medium py-2 rounded-lg transition-all duration-300 ${
+                className={`w-full text-white font-medium py-2 rounded-lg transition-all duration-300 cursor-pointer ${
                   loading ? "bg-indigo-300 cursor-not-allowed" : "bg-indigo-600 hover:bg-indigo-700"
                 }`}
               >
@@ -152,7 +152,7 @@ const CreateTicket = () => {
           </div>
         </div>
       </div>
-    </Layout>
+    
   );
 };
 

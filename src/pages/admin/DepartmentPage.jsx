@@ -13,7 +13,8 @@ const DepartmentPage = () => {
   const fetchDepartments = async () => {
     try {
       const res = await api.get("/admin/department");
-      setDepartments(res.data);
+      const sorted = res.data.sort((a, b) => a.id - b.id); // ascending order
+      setDepartments(sorted);
     } catch (err) {
       setError("Failed to load departments");
     }
@@ -31,37 +32,59 @@ const DepartmentPage = () => {
   const handleFormClose = () => {
     setEditDeptId(null);
     setShowForm(false);
-    fetchDepartments(); // Refresh after add/edit
+    fetchDepartments();
+  };
+
+  const handleDelete = async (id) => {
+    if (!window.confirm("Are you sure you want to delete this department?")) return;
+    try {
+      await api.delete(`/admin/department/${id}`);
+      fetchDepartments();
+    } catch (err) {
+      console.error("Failed to delete department:", err);
+    }
   };
 
   return (
-      <div className="flex-grow px-6 py-2">
-        <div className="-mx-6 border-b border-gray-300 bg-gray-50 mt-2 pb-2 mb-6">
-          <h1 className="text-2xl px-6 pb-2">Departments</h1>
-        </div>
+    <div className="flex-grow px-6 py-2">
+      {/* Page Header */}
+      <div className="-mx-6 border-b border-gray-300 bg-gray-50 mt-2 pb-2 mb-6">
+        <h1 className="text-2xl font-semibold tracking-tight px-6 pb-2">Departments</h1>
+      </div>
 
-        {error && <p className="text-red-500 mb-4">{error}</p>}
+      {/* Subtext */}
+      <p className="text-gray-600 text-sm mb-5 px-1">Manage support departments</p>
 
+      {/* Add Department Button */}
+      <div className="mb-4 text-left">
         <button
-          className="mb-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+          className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition cursor-pointer"
           onClick={() => setShowForm(true)}
         >
           Add Department
         </button>
+      </div>
 
+      {/* Department Table */}
+      <div className="overflow-x-auto bg-white shadow-md rounded-xl border border-gray-300">
         <DepartmentTable
           departments={departments}
-          onDelete={fetchDepartments}
+          onDelete={handleDelete}
           onEdit={handleEdit}
         />
-
-        {showForm && (
-          <DepartmentForm
-            onClose={handleFormClose}
-            departmentId={editDeptId}
-          />
+        {departments.length === 0 && (
+          <p className="text-gray-500 text-sm text-center py-6">No departments found.</p>
         )}
       </div>
+
+      {/* Department Form */}
+      {showForm && (
+        <DepartmentForm
+          onClose={handleFormClose}
+          departmentId={editDeptId}
+        />
+      )}
+    </div>
   );
 };
 

@@ -45,11 +45,11 @@ const AgentDashboard = () => {
       <div className="flex-grow px-6 py-2">
 
         <div className="-mx-6 border-b border-gray-300 bg-gray-50 mt-2 pb-2 mb-6">
-          <h1 className="text-2xl pb-2 px-6">DashBoard</h1>
+          <h1 className="text-2xl font-semibold tracking-tight pb-2 px-6">DashBoard</h1>
         </div>
 
-        <div className="px-4 pb-4">
-          <h1 className="text-2xl font-semibold text-gray-800">
+        <div className="-mx-6 px-6 pb-6 mt-0">
+          <h1 className="text-2xl  font-semibold text-gray-800">
             Welcome back! {/*add name*/}
           </h1>
           <p className="mt-0 text-gray-600">
