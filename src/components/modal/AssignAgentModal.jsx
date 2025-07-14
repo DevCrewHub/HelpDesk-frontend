@@ -54,7 +54,7 @@ const AssignAgentModal = ({ ticketId, onClose, ticket}) => {
               </div>
               <button
                 onClick={() => handleAssign(agent.id)}
-                className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 text-sm"
+                className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 text-sm cursor-pointer"
               >
                 Assign
               </button>
@@ -67,7 +67,7 @@ const AssignAgentModal = ({ ticketId, onClose, ticket}) => {
 
         <button
           onClick={onClose}
-          className="mt-4 text-gray-500 hover:text-gray-700 text-sm"
+          className="mt-4 text-gray-500 hover:text-gray-700 text-sm cursor-pointer"
         >
           Close
         </button>

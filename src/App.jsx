@@ -99,7 +99,7 @@ const App = () => {
             </ProtectedRoute>
           } />
 
-          <Route path="agentregistration" element={
+          <Route path="/admin/agentregistration" element={
             <ProtectedRoute isAuthenticated={isAuthenticated}>
               <AgentRegistrationPage />
             </ProtectedRoute>

@@ -19,7 +19,7 @@ const ToggleSwitch = ({ isLogin, setIsLogin, clearForms }) => {
         onClick={switchToLogin}
         className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-all duration-300 cursor-pointer ${
           isLogin
-            ? 'bg-white text-blue-600 shadow-sm'
+            ? 'bg-white text-indigo-600 shadow-sm'
             : 'text-gray-600 hover:text-gray-900'
         }`}
       >
@@ -30,7 +30,7 @@ const ToggleSwitch = ({ isLogin, setIsLogin, clearForms }) => {
         onClick={switchToRegister}
         className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-all duration-300 cursor-pointer ${
           !isLogin
-            ? 'bg-white text-blue-600 shadow-sm'
+            ? 'bg-white text-indigo-600 shadow-sm'
             : 'text-gray-600 hover:text-gray-900'
         }`}
       >
