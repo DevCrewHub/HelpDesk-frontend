@@ -48,8 +48,8 @@ const AgentDashboard = () => {
           <h1 className="text-2xl pb-2 px-6">DashBoard</h1>
         </div>
 
-        <div className="px-4 pb-4">
-          <h1 className="text-2xl font-semibold text-gray-800">
+        <div className="-mx-6 px-6 pb-6 mt-0">
+          <h1 className="text-2xl  font-semibold text-gray-800">
             Welcome back! {/*add name*/}
           </h1>
           <p className="mt-0 text-gray-600">

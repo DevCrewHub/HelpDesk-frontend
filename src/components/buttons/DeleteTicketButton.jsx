@@ -17,7 +17,7 @@ const DeleteTicketButton = ({ ticketId, onDeleted }) => {
   return (
     <button
       onClick={handleDelete}
-      className="px-3 py-1 text-sm bg-red-500 hover:bg-red-600 text-white rounded"
+      className="px-3 py-1 text-sm bg-red-500 hover:bg-red-600 text-white rounded cursor-pointer"
     >
       Delete
     </button>

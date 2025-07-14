@@ -17,6 +17,9 @@ import SidebarLayout from "./layout/SidebarLayout";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import MorePage from "./components/navbar/More";
 
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
     const token = localStorage.getItem("token");
@@ -59,6 +62,7 @@ const App = () => {
 
   return (
     <BrowserRouter>
+     <ToastContainer position="top-right" autoClose={3000} />
       <Routes>
         {/* Public Routes */}
         <Route path="/login" element={<AuthPage setIsAuthenticated={setIsAuthenticated} />} />
@@ -96,7 +100,7 @@ const App = () => {
             </ProtectedRoute>
           } />
 
-          <Route path="agentregistration" element={
+          <Route path="/admin/agentregistration" element={
             <ProtectedRoute isAuthenticated={isAuthenticated}>
               <AgentRegistrationPage />
             </ProtectedRoute>

@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import Layout from "../layout/SidebarLayout";
 import api from "../utils/api";
+import { toast } from "react-toastify";
+
 import CloseTicketButton from "../components/buttons/CloseTicketButton";
 import AssignTicketButton from "../components/buttons/AssignTicketButton";
 import CommentSection from "../components/CommentSection";
-
-import { FaCheck } from "react-icons/fa";
 import AssignAgentModal from "../components/modal/AssignAgentModal";
 import DeleteTicketButton from "../components/buttons/DeleteTicketButton";
+
+import { FaCheck } from "react-icons/fa";
 
 const TicketView = () => {
   const { id } = useParams();
@@ -50,13 +51,9 @@ const TicketView = () => {
     return ticket;
   };
 
-  const reDirect = async () => {
-    navigate("/dashboard");
-  };
-
   const formatDate = (isoString) => {
     const date = new Date(isoString);
-    return date.toISOString().split("T")[0];
+    return date.toLocaleDateString("en-GB"); // DD/MM/YYYY
   };
 
   const handleStatusChange = () => {
@@ -66,12 +63,12 @@ const TicketView = () => {
       })
       .then(() => {
         setTicket((prev) => ({ ...prev, status: "RESOLVED" }));
-        alert("Ticket marked as RESOLVED.");
-        navigate("/dashboard");
+        toast.success("Ticket marked as RESOLVED");
+        navigate("/tickets");
       })
       .catch((error) => {
         console.error("Error updating status:", error);
-        alert("Failed to update ticket status.");
+        toast.error("Failed to update ticket status");
       });
   };
 
@@ -82,155 +79,156 @@ const TicketView = () => {
       })
       .then(() => {
         setTicket((prev) => ({ ...prev, priority: newPriority }));
-        alert(`Ticket marked as ${newPriority}`);
-        navigate("/dashboard");
+        toast.success(`Priority updated to ${newPriority}`);
+        navigate("/tickets");
       })
       .catch((error) => {
         console.error("Error updating priority:", error);
-        alert("Failed to update ticket priority.");
+        toast.error("Failed to update priority");
       });
   };
 
-  if (!ticket) return <div>Loading...</div>;
+  if (!ticket) return <div className="px-6 py-4">Loading...</div>;
+
+  const getStatusBadge = (status) => {
+    const base = "text-xs font-semibold px-2 py-1 rounded-full";
+    switch (status) {
+      case "PENDING":
+        return `${base} bg-blue-100 text-blue-700`;
+      case "INPROGRESS":
+        return `${base} bg-yellow-100 text-yellow-700`;
+      case "RESOLVED":
+        return `${base} bg-green-100 text-green-700`;
+      case "CLOSED":
+        return `${base} bg-gray-200 text-gray-600`;
+      default:
+        return `${base} bg-gray-100 text-gray-600`;
+    }
+  };
+
+  const getPriorityBadge = (priority) => {
+    const base = "text-xs font-semibold px-2 py-1 rounded-full";
+    switch (priority) {
+      case "HIGH":
+        return `${base} bg-red-100 text-red-700`;
+      case "MEDIUM":
+        return `${base} bg-yellow-100 text-yellow-700`;
+      case "LOW":
+        return `${base} bg-gray-100 text-gray-700`;
+      default:
+        return `${base} bg-gray-100 text-gray-700`;
+    }
+  };
 
   return (
-      <div className="flex flex-grow min-h-screen">
-        <div className="flex flex-grow flex-col justify-between px-6 py-2">
+    <div className="flex-grow px-6 py-2">
+      <div className="-mx-6 border-b border-gray-300 bg-gray-50 pb-2 mb-6">
+        <h1 className="text-2xl font-semibold tracking-tight px-6 pt-2 pb-4">
+          Ticket Details
+        </h1>
+      </div>
+
+      <div className="bg-white p-6 rounded shadow-sm border border-gray-200 mb-6">
+        <div className="flex justify-between items-start flex-wrap gap-4 mb-4">
           <div>
-            <div className="text-2xl -mx-6 border-b border-gray-300 bg-gradient-to-b from-white to-gray-50 mt-2 pb-2 mb-6">
-              <div className="px-6 pb-2">
-                <span
-                  onClick={() => navigate("/tickets")}
-                  className="hover:underline cursor-pointer"
-                >
-                  Tickets
-                </span>{" "}/
-                <span className="font-medium"> {ticket.title}</span>
-              </div>
-            </div>
+            <h2 className="text-xl font-bold text-gray-800 text-indigo-700">
+              #{ticket.id} {ticket.title}
+            </h2>
+            <p className="text-sm text-gray-600 mt-2 whitespace-pre-line">
+              {ticket.description}
+            </p>
+          </div>
 
-            {/* Ticket Info Container */}
-            <div className="bg-white p-6 rounded-xl shadow mb-6 border border-gray-200">
-              <div className="flex flex-col gap-4 md:flex-row justify-between items-start mb-3">
-                <div>
-                  <h1 className="text-xl font-bold text-gray-800">#{ticket.id} {ticket.title}</h1>
-                </div>
+          <div className="flex flex-wrap gap-2 items-center">
+            {isAgent ? (
+              <>
+                {ticket.status === "PENDING" && ticket.agentName == null && (
+                  <AssignTicketButton ticketId={ticket.id} onSuccess={() => {}} />
+                )}
 
-                <div className="flex flex-wrap gap-2">
-                  {isAgent ? (
-                    <>
-                      {ticket.status === "PENDING" && ticket.agentName == null && (
-                        <AssignTicketButton
-                          ticketId={ticket.id}
-                          onSuccess={fetchTicketDetails}
-                        />
-                      )}
-
-                      {userRole === "AGENT" &&
-                        ticket.status === "INPROGRESS" &&
-                        ticket.agentId === Number(userId) && (
-                          <button
-                            onClick={() => handleStatusChange()}
-                            className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-sm flex items-center"
-                          >
-                            <FaCheck className="mr-1" /> Mark as Resolved
-                          </button>
-                        )}
-
-                      {(ticket.customerId === Number(userId) || ticket.agentId === Number(userId)) ? (
-                        <select
-                          value={ticket.priority}
-                          onChange={(e) => handlePriorityChange(e.target.value)}
-                          className="bg-gray-200 text-gray-700 border border-gray-300 px-3 py-1 rounded text-sm"
-                        >
-                          <option value="LOW">Low</option>
-                          <option value="MEDIUM">Medium</option>
-                          <option value="HIGH">High</option>
-                        </select>
-                      ) : (
-                        <span className="bg-gray-200 text-gray-700 border border-gray-300 px-3 py-1 rounded text-sm">{ticket.priority}</span>
-                      )}
-                    </>
-                  ) : (
-                    <>
-                      <span
-                        className={`px-2 py-0.5 rounded text-sm ${
-                          ticket.status === "OPEN"
-                            ? "bg-green-100 text-green-700"
-                            : "bg-gray-200"
-                        }`}
-                      >
-                        {ticket.status}
-                      </span>
-                      <span
-                        className={`px-2 py-0.5 rounded text-sm ${
-                          ticket.priority === "HIGH"
-                            ? "bg-red-100 text-red-700"
-                            : "bg-yellow-100 text-yellow-700"
-                        }`}
-                      >
-                        {ticket.priority}
-                      </span>
-                      <span>
-                        {ticket.status !== "CLOSED" && isCustomer ? (
-                          <CloseTicketButton
-                            ticketId={ticket.id}
-                            onSuccess={reDirect}
-                          />
-                        ) : (
-                          ""
-                        )}
-                      </span>
-                      <span>
-                        {
-                          isCustomer ? 
-                          <div>
-                            <DeleteTicketButton ticketId={ticket.id} onDeleted={() => navigate('/tickets')}/>
-                          </div>
-                          :
-                          ""
-                        }
-                      </span>
-                      <span>
-                      {
-                        isAdmin && ticket.agentName === null ?
-                        <div>
-                          <button
-                            className="bg-indigo-600 text-white px-2 py-0.5 text-sm rounded hover:bg-indigo-700"
-                            onClick={() => setShowModal(true)}
-                          >
-                            Assign to Agent
-                          </button>
-
-                          {showModal && (
-                            <AssignAgentModal
-                              ticketId={ticket.id}
-                              ticket = {ticket}
-                              onClose={() => setShowModal(false)}
-                            />
-                          )}
-                        </div>
-                        : ""
-                      }
-                      </span>
-                    </>
+                {ticket.status === "INPROGRESS" &&
+                  ticket.agentId === Number(userId) && (
+                    <button
+                      onClick={handleStatusChange}
+                      className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-sm flex items-center"
+                    >
+                      <FaCheck className="mr-1" />
+                      Mark as Resolved
+                    </button>
                   )}
-                </div>
-              </div>
-              <p className="text-sm text-gray-600 my-2 whitespace-pre-line">
-                {ticket.description}
-              </p>
-              <div className="flex flex-wrap gap-4 text-sm text-gray-600">
-                <div><strong>Created:</strong> {formatDate(ticket.createdDate)}</div>
-                <div><strong>Assigned To:</strong> {ticket.agentName || "UnAssigned"}</div>
-                <div><strong>Department:</strong> {ticket.departmentName}</div>
-              </div>
-            </div>
 
-            <CommentSection ticketId={ticket.id} ticket={ticket} />
+                <select
+                  value={ticket.priority}
+                  onChange={(e) => handlePriorityChange(e.target.value)}
+                  className="bg-gray-100 text-sm border border-gray-300 rounded px-2 py-1 cursor-pointer"
+                >
+                  <option value="LOW">Low</option>
+                  <option value="MEDIUM">Medium</option>
+                  <option value="HIGH">High</option>
+                </select>
+              </>
+            ) : (
+              <>
+                <span className={getStatusBadge(ticket.status)}>
+                  {ticket.status}
+                </span>
+                <span className={getPriorityBadge(ticket.priority)}>
+                  {ticket.priority}
+                </span>
+
+                {ticket.status !== "CLOSED" && isCustomer && (
+                  <CloseTicketButton
+                    ticketId={ticket.id}
+                    onSuccess={() => navigate("/tickets")}
+                  />
+                )}
+
+                {isCustomer && (
+                  <DeleteTicketButton
+                    ticketId={ticket.id}
+                    onDeleted={() => navigate("/tickets")}
+                  />
+                )}
+
+                {isAdmin && !ticket.agentName && (
+                  <>
+                    <button
+                      className="bg-indigo-600 text-white px-3 py-1 rounded text-sm hover:bg-indigo-700"
+                      onClick={() => setShowModal(true)}
+                    >
+                      Assign to Agent
+                    </button>
+
+                    {showModal && (
+                      <AssignAgentModal
+                        ticketId={ticket.id}
+                        ticket={ticket}
+                        onClose={() => setShowModal(false)}
+                      />
+                    )}
+                  </>
+                )}
+              </>
+            )}
+          </div>
+        </div>
+
+        <div className="flex flex-wrap gap-4 text-sm text-gray-600 mt-4">
+          <div>
+            <strong>Created:</strong> {formatDate(ticket.createdDate)}
+          </div>
+          <div>
+            <strong>Assigned To:</strong> {ticket.agentName || "Unassigned"}
+          </div>
+          <div>
+            <strong>Department:</strong> {ticket.departmentName}
           </div>
         </div>
       </div>
+
+      {/* Comment Section */}
+      <CommentSection ticketId={ticket.id} ticket={ticket} />
+    </div>
   );
 };
 

@@ -1,54 +1,63 @@
-import api from '../../utils/api';
+import { Pencil, Trash2 } from "lucide-react";
+import { toast } from "react-toastify";
+import api from "../../utils/api";
 
 const DepartmentTable = ({ departments, onDelete, onEdit }) => {
   const handleDelete = async (id) => {
-    if (!window.confirm("Delete this department?")) return;
+    if (!window.confirm("Are you sure you want to delete this department?")) return;
     try {
       await api.delete(`/admin/department/${id}`);
+      toast.success("Department deleted successfully");
       onDelete();
     } catch (err) {
-      alert("Delete failed");
+      toast.error("Failed to delete department");
     }
   };
 
   return (
-    <table className="w-full text-sm text-left bg-white rounded shadow">
-      <thead className="bg-gray-200">
+    <table className="min-w-full table-auto text-sm text-left border-collapse">
+      <thead className="bg-gray-100 border-b border-gray-300">
         <tr>
-          <th className="p-2">ID</th>
-          <th className="p-2">Name</th>
-          <th className="p-2">Actions</th>
+          <th className="px-6 py-3 border-r border-gray-200 text-gray-700 text-xs font-semibold uppercase tracking-wider">
+            ID
+          </th>
+          <th className="px-6 py-3 border-r border-gray-200 text-gray-700 text-xs font-semibold uppercase tracking-wider">
+            Department Name
+          </th>
+          <th className="px-6 py-3 text-center text-gray-700 text-xs font-semibold uppercase tracking-wider">
+            Actions
+          </th>
         </tr>
       </thead>
       <tbody>
-        {departments.length ? (
-          departments.map((dept) => (
-            <tr key={dept.id} className="border-t hover:bg-gray-50">
-              <td className="p-2 pr-10">{dept.id}</td>
-              <td className="p-2">{dept.name}</td>
-              <td className="p-2 space-x-2">
+        {departments.map((dept) => (
+          <tr
+            key={dept.id}
+            className="border-t border-gray-200 hover:bg-gray-50 transition-all duration-150"
+          >
+            <td className="px-6 py-3 border-r border-gray-100 text-gray-800 font-medium">{dept.id}</td>
+            <td className="px-6 py-3 border-r border-gray-100 text-gray-700">{dept.name}</td>
+            <td className="px-6 py-3 text-center">
+              <div className="flex items-center justify-center gap-3">
                 <button
-                  className="px-2 py-1 bg-yellow-500 text-white rounded text-xs"
                   onClick={() => onEdit(dept.id)}
+                  className="text-blue-600 hover:text-blue-800 transition duration-150 cursor-pointer"
+                  title="Edit"
                 >
-                  Update
+                  <Pencil size={16} />
                 </button>
                 <button
-                  className="px-2 py-1 bg-red-600 text-white rounded text-xs"
                   onClick={() => handleDelete(dept.id)}
+                  className="inline-flex items-center px-3 py-1.5 text-sm font-medium text-red-600 hover:text-white hover:bg-red-600 border border-red-300 rounded transition duration-200 cursor-pointer"
+                  title="Delete"
                 >
+                  <Trash2 size={16} className="mr-1" />
                   Delete
                 </button>
-              </td>
-            </tr>
-          ))
-        ) : (
-          <tr>
-            <td className="p-2 text-center" colSpan="3">
-              No departments found
+              </div>
             </td>
           </tr>
-        )}
+        ))}
       </tbody>
     </table>
   );

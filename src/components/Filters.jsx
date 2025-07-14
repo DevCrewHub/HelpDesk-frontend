@@ -4,10 +4,19 @@ import api from "../utils/api";
 const Filters = ({ filters, onStatusChange, onPriorityChange, onDepartmentChange }) => {
   const [departments, setDepartments] = useState([]);
 
-   useEffect(() => {
+  useEffect(() => {
     const fetchDepartments = async () => {
+      const role = localStorage.getItem("userRole");
+      let endpoint = "/admin/department"; // default
+
+      if (role === "CUSTOMER") {
+        endpoint = "/customer/departments"; 
+      } else if (role === "AGENT") {
+        endpoint = "/agent/departments"; 
+      }
+
       try {
-        const res = await api.get("/admin/department");
+        const res = await api.get(endpoint);
         setDepartments(res.data);
       } catch (err) {
         console.error("Failed to load departments", err);
@@ -17,13 +26,16 @@ const Filters = ({ filters, onStatusChange, onPriorityChange, onDepartmentChange
     fetchDepartments();
   }, []);
 
+  const baseStyle =
+    "border border-gray-300 text-gray-700 bg-gray-100 px-3 py-[6px] text-sm rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 cursor-pointer";
+
   return (
-    <div className="flex flex-wrap gap-4 mb-4">
+    <div className="flex flex-wrap gap-4 items-center mb-6">
       {/* Status Filter */}
       <select
         value={filters.status}
         onChange={(e) => onStatusChange(e.target.value)}
-        className="border border-gray-300 text-gray-500 bg-gray-200 px-3 py-[2px] text-sm rounded cursor-pointer"
+        className={baseStyle}
       >
         <option value="">All Statuses</option>
         <option value="PENDING">Pending</option>
@@ -36,7 +48,7 @@ const Filters = ({ filters, onStatusChange, onPriorityChange, onDepartmentChange
       <select
         value={filters.priority}
         onChange={(e) => onPriorityChange(e.target.value)}
-        className="border border-gray-300 text-gray-500 bg-gray-200 px-3 py-[2px] text-sm rounded cursor-pointer"
+        className={baseStyle}
       >
         <option value="">All Priorities</option>
         <option value="HIGH">High</option>
@@ -48,7 +60,7 @@ const Filters = ({ filters, onStatusChange, onPriorityChange, onDepartmentChange
       <select
         value={filters.department}
         onChange={(e) => onDepartmentChange(e.target.value)}
-        className="border border-gray-300 text-gray-500 bg-gray-200 px-3 py-[2px] text-sm rounded cursor-pointer"
+        className={baseStyle}
       >
         <option value="">All Departments</option>
         {departments.map((dept) => (
