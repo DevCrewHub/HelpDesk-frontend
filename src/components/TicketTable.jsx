@@ -8,7 +8,9 @@ const TicketTable = ({ tickets }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const ticketsPerPage = 5;
 
-  const sortedTickets = [...tickets].sort((a, b) => b.id - a.id);
+  const sortedTickets = [...tickets].sort(
+  (a, b) => new Date(a.createdDate) - new Date(b.createdDate)
+);
   const indexOfLastTicket = currentPage * ticketsPerPage;
   const indexOfFirstTicket = indexOfLastTicket - ticketsPerPage;
   const currentTickets = sortedTickets.slice(indexOfFirstTicket, indexOfLastTicket);

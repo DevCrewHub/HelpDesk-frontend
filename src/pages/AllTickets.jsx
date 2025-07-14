@@ -73,7 +73,7 @@ const AllTickets = () => {
     fetchSearchedTickets();
   }, [query]);
 
-  // 🧠 Combined filter logic (client-side)
+  
   const applyClientSideFilters = (tickets) => {
     return tickets.filter((ticket) => {
       return (

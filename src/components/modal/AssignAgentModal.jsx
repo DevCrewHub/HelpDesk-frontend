@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "../../utils/api";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const AssignAgentModal = ({ ticketId, onClose, ticket}) => {
   const [agents, setAgents] = useState([]);
@@ -18,11 +19,11 @@ const AssignAgentModal = ({ ticketId, onClose, ticket}) => {
       await api.put(`/admin/tickets/${ticketId}/assign`, null, {
         params: { agentId: agentId}
       });
-      alert("Ticket assigned successfully");
+      toast.message("Ticket assigned successfully");
       navigate("/dashboard");
       onClose();
     } catch (err) {
-      alert("Assignment failed.");
+      toast.error("Assignment failed.");
     }
   };
 
@@ -42,19 +43,19 @@ const AssignAgentModal = ({ ticketId, onClose, ticket}) => {
           placeholder="Search agents..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-full mb-4 px-3 py-2 border border-gray-300 rounded"
+          className="w-full mb-4 px-3 py-2 border border-gray-300 hover:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition rounded"
         />
 
         <ul className="max-h-60 overflow-y-auto space-y-2">
           {filteredAgents.map((agent) => (
-            <li key={agent.id} className="flex justify-between items-center border p-2 rounded hover:bg-gray-50">
+            <li key={agent.id} className="flex justify-between items-center border p-2 border-gray-300 hover:border-indigo-500 focus:outline-none rounded ">
               <div>
                 <p className="font-medium">{agent.fullName}</p>
                 <p className="text-sm text-gray-500">{agent.email}</p>
               </div>
               <button
                 onClick={() => handleAssign(agent.id)}
-                className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 text-sm cursor-pointer"
+                className="bg-indigo-600 text-white px-3 py-1 rounded hover:bg-indigo-700 text-sm cursor-pointer"
               >
                 Assign
               </button>
