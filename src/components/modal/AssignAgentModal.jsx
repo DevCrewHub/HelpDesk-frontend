@@ -19,7 +19,7 @@ const AssignAgentModal = ({ ticketId, onClose, ticket}) => {
       await api.put(`/admin/tickets/${ticketId}/assign`, null, {
         params: { agentId: agentId}
       });
-      toast.message("Ticket assigned successfully");
+      toast.success("Ticket assigned successfully");
       navigate("/dashboard");
       onClose();
     } catch (err) {

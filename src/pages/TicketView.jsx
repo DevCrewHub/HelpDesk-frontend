@@ -24,7 +24,7 @@ const TicketView = () => {
   const isAgent = userRole === "AGENT";
   const isCustomer = userRole === "CUSTOMER";
   const isAdmin = userRole === "ADMIN";
-  const isAssigned = ticket.agentId === Number(userId);
+  const isAssigned = ticket?.agentId === Number(userId);
 
   useEffect(() => {
     const fetchTicket = async () => {
