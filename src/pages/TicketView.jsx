@@ -24,6 +24,7 @@ const TicketView = () => {
   const isAgent = userRole === "AGENT";
   const isCustomer = userRole === "CUSTOMER";
   const isAdmin = userRole === "ADMIN";
+  const isAssigned = ticket?.agentId === Number(userId);
 
   useEffect(() => {
     const fetchTicket = async () => {
@@ -156,7 +157,7 @@ const TicketView = () => {
                 )}
 
                 {ticket.status === "INPROGRESS" &&
-                  ticket.agentId === Number(userId) && (
+                  isAssigned && (
                     <button
                       onClick={handleStatusChange}
                       className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-sm flex items-center"
@@ -164,8 +165,9 @@ const TicketView = () => {
                       <FaCheck className="mr-1" />
                       Mark as Resolved
                     </button>
-                  )}
+                )}
 
+                {isAssigned ?
                 <select
                   value={ticket.priority}
                   onChange={(e) => handlePriorityChange(e.target.value)}
@@ -174,7 +176,11 @@ const TicketView = () => {
                   <option value="LOW">Low</option>
                   <option value="MEDIUM">Medium</option>
                   <option value="HIGH">High</option>
-                </select>
+                </select> :
+                <span className={getPriorityBadge(ticket.priority)}>
+                  {ticket.priority}
+                </span>
+                }
               </>
             ) : (
               <>
