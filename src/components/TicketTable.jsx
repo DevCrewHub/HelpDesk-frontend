@@ -1,18 +1,19 @@
-import React, { useState, useEffect } from "react";
-import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
+import { useState, useEffect } from "react";
 import { AlertTriangle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import Pagination from "./Pagination";
+
+const ITEMS_PER_PAGE = 5;
 
 const TicketTable = ({ tickets }) => {
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
-  const ticketsPerPage = 5;
 
   const sortedTickets = [...tickets].sort((a, b) => b.id - a.id);
-  const indexOfLastTicket = currentPage * ticketsPerPage;
-  const indexOfFirstTicket = indexOfLastTicket - ticketsPerPage;
-  const currentTickets = sortedTickets.slice(indexOfFirstTicket, indexOfLastTicket);
-  const totalPages = Math.ceil(sortedTickets.length / ticketsPerPage);
+  const currentTickets = sortedTickets.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE
+  );
 
   const formatDate = (isoString) => {
     const date = new Date(isoString).toLocaleDateString("en-CA");
@@ -108,41 +109,11 @@ const TicketTable = ({ tickets }) => {
           </tbody>
         </table>
       </div>
-
-      {/* Pagination Controls */}
-      {totalPages > 1 && (
-        <div className="flex justify-center mt-4 gap-2">
-          <button
-            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-            disabled={currentPage === 1}
-            className="px-3 py-1 bg-gray-200 rounded disabled:opacity-50 cursor-pointer"
-          >
-            <FaAngleLeft />
-          </button>
-
-          {[...Array(totalPages)].map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setCurrentPage(i + 1)}
-              className={`px-3 py-1 rounded transition cursor-pointer ${
-                currentPage === i + 1
-                  ? "bg-indigo-600 text-white"
-                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-              }`}
-            >
-              {i + 1}
-            </button>
-          ))}
-
-          <button
-            onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
-            disabled={currentPage === totalPages}
-            className="px-3 py-1 bg-gray-200 rounded disabled:opacity-50 cursor-pointer"
-          >
-            <FaAngleRight />
-          </button>
-        </div>
-      )}
+      <Pagination
+        currentPage={currentPage}
+        totalPages={Math.ceil(tickets.length / ITEMS_PER_PAGE)}
+        onPageChange={setCurrentPage}
+      />
     </div>
   );
 };

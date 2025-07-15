@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import Searchbar from "../components/Searchbar";
 import TicketTable from "../components/TicketTable";
 import Filters from "../components/Filters";
-import Layout from "../layout/SidebarLayout";
 import api from "../utils/api";
 import { useNavigate } from "react-router-dom";
 
@@ -103,7 +102,6 @@ const AssignedTickets = () => {
     fetchFilteredTickets("department", department);
   };
 
-  // Client-side filter: status + priority
   const filteredTickets = tickets.filter((ticket) => {
     return (
       (filters.status === "" || ticket.status === filters.status) &&

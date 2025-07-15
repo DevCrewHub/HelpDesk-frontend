@@ -1,14 +1,15 @@
-import { memo, useState, useRef, useMemo } from "react";
+import { memo, useRef, useMemo } from "react";
 import { FaSignOutAlt, FaUserCircle, FaBars, FaUser, FaBook, FaUserPlus, FaUserCheck, FaUserTie } from "react-icons/fa";
 import { GoPlusCircle } from "react-icons/go";
 import { FiFileText, FiUser } from "react-icons/fi";
-import { useNavigate } from "react-router-dom";
-import { ChevronDown, ChevronRight } from "lucide-react";
-import { MdApartment } from "react-icons/md";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
   const navigate = useNavigate();
   const sidebarRef = useRef(null);
+  const location = useLocation();
+  const path = location.pathname;
+  const isActive = (route) => path === route;
 
   const fullName = useMemo(() => localStorage.getItem("userName") || "User", []);
   const userRole = useMemo(() => localStorage.getItem("userRole"), []);
@@ -37,7 +38,10 @@ const Sidebar = () => {
             <nav className={`space-y-3 ${userRole === "ADMIN" ? "text-sm" : ""}`}>
               <button
                 onClick={() => navigate("/dashboard")}
-                className="flex items-center gap-2 w-full text-left px-3 py-2 rounded-lg text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors cursor-pointer"
+                className={`flex items-center gap-2 w-full text-left px-3 py-2 rounded-lg ${isActive("/" || "/dashboard")
+                ? "text-indigo-700 bg-indigo-100 font-semibold"
+                : "text-gray-700"}
+                hover:bg-indigo-50 hover:text-indigo-600 transition-colors cursor-pointer`}
               >
                 <FiUser className="w-4 h-4" />
                 DashBoard
@@ -45,7 +49,9 @@ const Sidebar = () => {
 
               {userRole === "CUSTOMER" && (<button
                   onClick={handleCreateTicket}
-                  className="flex items-center gap-2 w-full text-left px-3 py-2 rounded-lg text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors cursor-pointer"
+                  className={`flex items-center gap-2 w-full text-left px-3 py-2 rounded-lg ${isActive("/create-ticket")
+                ? "text-indigo-700 bg-indigo-100 font-semibold"
+                : "text-gray-700"} hover:bg-indigo-50 hover:text-indigo-600 transition-colors cursor-pointer`}
                 >
                   <GoPlusCircle className="w-4 h-4" />
                   Create Ticket
@@ -54,7 +60,9 @@ const Sidebar = () => {
 
               {userRole === "AGENT" && (<button
                   onClick={() => navigate('/assigned-tickets')}
-                  className="flex items-center gap-2 w-full text-left px-3 py-2 rounded-lg text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors cursor-pointer"
+                  className={`flex items-center gap-2 w-full text-left px-3 py-2 rounded-lg ${isActive("/assigned-tickets")
+                ? "text-indigo-700 bg-indigo-100 font-semibold"
+                : "text-gray-700"} hover:bg-indigo-50 hover:text-indigo-600 transition-colors cursor-pointer`}
                 >
                   <FaUserCheck className="w-4 h-4" />
                   Assigned To Me
@@ -63,7 +71,9 @@ const Sidebar = () => {
 
               <button
                 onClick={handleViewTickets}
-                className="flex items-center gap-2 w-full text-left px-3 py-2 rounded-lg text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors cursor-pointer"
+                className={`flex items-center gap-2 w-full text-left px-3 py-2 rounded-lg ${isActive("/tickets")
+                ? "text-indigo-700 bg-indigo-100 font-semibold"
+                : "text-gray-700"} hover:bg-indigo-50 hover:text-indigo-600 transition-colors cursor-pointer`}
               >
                 <FiFileText className="w-4 h-4" />
                 View Tickets
@@ -72,7 +82,9 @@ const Sidebar = () => {
               {userRole === "CUSTOMER" ?
               <button
                 onClick={() => navigate('/knowledge')}
-                className="flex items-center gap-2 w-full text-left px-3 py-2 rounded-lg text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors cursor-pointer"
+                className={`flex items-center gap-2 w-full text-left px-3 py-2 rounded-lg ${isActive("/knowledge")
+                ? "text-indigo-700 bg-indigo-100 font-semibold"
+                : "text-gray-700"} hover:bg-indigo-50 hover:text-indigo-600 transition-colors cursor-pointer`}
               >
                 <FaBook className="w-4 h-4" />
                 Knowledge Base
@@ -83,7 +95,9 @@ const Sidebar = () => {
                 <>
                 <button
                   onClick={() => navigate('/admin/customers')}
-                  className="flex items-center gap-2 w-full text-left px-3 py-2 rounded-lg text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors cursor-pointer"
+                  className={`flex items-center gap-2 w-full text-left px-3 py-2 rounded-lg ${isActive("/admin/customers")
+                ? "text-indigo-700 bg-indigo-100 font-semibold"
+                : "text-gray-700"} hover:bg-indigo-50 hover:text-indigo-600 transition-colors cursor-pointer`}
                 >
                   <FaUser className="w-4 h-4" />
                   View Customers
@@ -91,7 +105,9 @@ const Sidebar = () => {
             
                 <button
                   onClick={() => navigate('/admin/agents')}
-                  className="flex items-center gap-2 w-full text-left px-3 py-2 rounded-lg text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors cursor-pointer"
+                  className={`flex items-center gap-2 w-full text-left px-3 py-2 rounded-lg ${isActive("/admin/agents")
+                ? "text-indigo-700 bg-indigo-100 font-semibold"
+                : "text-gray-700"} hover:bg-indigo-50 hover:text-indigo-600 transition-colors cursor-pointer`}
                 >
                   <FaUserTie className="w-4 h-4" />
                   View Agents
@@ -99,7 +115,9 @@ const Sidebar = () => {
 
                 <button
                   onClick={() => navigate('/admin/departments')}
-                  className="flex items-center gap-2 w-full text-left px-3 py-2 rounded-lg text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors cursor-pointer"
+                  className={`flex items-center gap-2 w-full text-left px-3 py-2 rounded-lg ${isActive("/admin/departments")
+                ? "text-indigo-700 bg-indigo-100 font-semibold"
+                : "text-gray-700"} hover:bg-indigo-50 hover:text-indigo-600 transition-colors cursor-pointer`}
                 >
                   <FaUserTie className="w-4 h-4" />
                   Departments
@@ -107,7 +125,9 @@ const Sidebar = () => {
 
                 <button
                   onClick={() => navigate("/admin/agentregistration")}
-                  className="flex items-center gap-2 w-full text-left px-3 py-2 rounded-lg text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors cursor-pointer"
+                  className={`flex items-center gap-2 w-full text-left px-3 py-2 rounded-lg ${isActive("/admin/agentregistration")
+                ? "text-indigo-700 bg-indigo-100 font-semibold"
+                : "text-gray-700"} hover:bg-indigo-50 hover:text-indigo-600 transition-colors cursor-pointer`}
                 >
                   <FaUserPlus className="w-4 h-4" />
                   Add Agent

@@ -6,8 +6,7 @@
     "category": "Account Management",
     "tags": ["registration", "account", "signup"],
     "popularity": 95,
-    "lastUpdated": "2024-01-15",
-    "difficulty": "beginner"
+    "lastUpdated": "2024-01-15"
   },
   {
     "id": 2,
@@ -16,8 +15,7 @@
     "category": "Account Management",
     "tags": ["registration", "requirements", "password"],
     "popularity": 88,
-    "lastUpdated": "2024-01-10",
-    "difficulty": "beginner"
+    "lastUpdated": "2024-01-10"
   },
   {
     "id": 3,
@@ -26,8 +24,7 @@
     "category": "Account Management",
     "tags": ["login", "authentication", "access"],
     "popularity": 92,
-    "lastUpdated": "2024-01-12",
-    "difficulty": "beginner"
+    "lastUpdated": "2024-01-12"
   },
   {
     "id": 4,
@@ -36,8 +33,7 @@
     "category": "Account Management",
     "tags": ["password", "recovery", "reset", "support"],
     "popularity": 85,
-    "lastUpdated": "2024-01-08",
-    "difficulty": "intermediate"
+    "lastUpdated": "2024-01-08"
   },
   {
     "id": 5,
@@ -46,8 +42,7 @@
     "category": "Account Management",
     "tags": ["password", "change", "security"],
     "popularity": 78,
-    "lastUpdated": "2024-01-05",
-    "difficulty": "intermediate"
+    "lastUpdated": "2024-01-05"
   },
   {
     "id": 6,
@@ -56,8 +51,7 @@
     "category": "Support Tickets",
     "tags": ["tickets", "support", "create", "help"],
     "popularity": 90,
-    "lastUpdated": "2024-01-18",
-    "difficulty": "beginner"
+    "lastUpdated": "2024-01-18"
   },
   {
     "id": 7,
@@ -66,8 +60,7 @@
     "category": "Support Tickets",
     "tags": ["tickets", "requirements", "details"],
     "popularity": 82,
-    "lastUpdated": "2024-01-16",
-    "difficulty": "beginner"
+    "lastUpdated": "2024-01-16"
   },
   {
     "id": 8,
@@ -76,8 +69,7 @@
     "category": "Support Tickets",
     "tags": ["tickets", "view", "history", "tracking"],
     "popularity": 87,
-    "lastUpdated": "2024-01-14",
-    "difficulty": "beginner"
+    "lastUpdated": "2024-01-14"
   },
   {
     "id": 9,
@@ -86,8 +78,7 @@
     "category": "Support Tickets",
     "tags": ["status", "tracking", "progress"],
     "popularity": 89,
-    "lastUpdated": "2024-01-17",
-    "difficulty": "beginner"
+    "lastUpdated": "2024-01-17"
   },
   {
     "id": 10,
@@ -96,8 +87,7 @@
     "category": "Support Tickets",
     "tags": ["status", "definitions", "workflow"],
     "popularity": 75,
-    "lastUpdated": "2024-01-13",
-    "difficulty": "intermediate"
+    "lastUpdated": "2024-01-13"
   },
   {
     "id": 11,
@@ -106,8 +96,7 @@
     "category": "Support Tickets",
     "tags": ["delete", "modify", "cancel"],
     "popularity": 65,
-    "lastUpdated": "2024-01-11",
-    "difficulty": "intermediate"
+    "lastUpdated": "2024-01-11"
   },
   {
     "id": 12,
@@ -116,8 +105,7 @@
     "category": "Privacy & Security",
     "tags": ["privacy", "access", "security", "confidentiality"],
     "popularity": 72,
-    "lastUpdated": "2024-01-09",
-    "difficulty": "beginner"
+    "lastUpdated": "2024-01-09"
   },
   {
     "id": 13,
@@ -126,8 +114,7 @@
     "category": "Support Tickets",
     "tags": ["assignment", "agents", "workflow"],
     "popularity": 58,
-    "lastUpdated": "2024-01-07",
-    "difficulty": "intermediate"
+    "lastUpdated": "2024-01-07"
   },
   {
     "id": 14,
@@ -136,8 +123,7 @@
     "category": "System Information",
     "tags": ["roles", "permissions", "access levels"],
     "popularity": 68,
-    "lastUpdated": "2024-01-06",
-    "difficulty": "intermediate"
+    "lastUpdated": "2024-01-06"
   },
   {
     "id": 15,
@@ -146,8 +132,7 @@
     "category": "Troubleshooting",
     "tags": ["login issues", "troubleshooting", "access problems"],
     "popularity": 83,
-    "lastUpdated": "2024-01-19",
-    "difficulty": "intermediate"
+    "lastUpdated": "2024-01-19"
   },
   {
     "id": 16,
@@ -156,8 +141,7 @@
     "category": "Support Tickets",
     "tags": ["resolution time", "priority", "expectations"],
     "popularity": 76,
-    "lastUpdated": "2024-01-16",
-    "difficulty": "beginner"
+    "lastUpdated": "2024-01-16"
   },
   {
     "id": 17,
@@ -166,8 +150,7 @@
     "category": "System Features",
     "tags": ["attachments", "images", "upcoming features"],
     "popularity": 71,
-    "lastUpdated": "2024-01-15",
-    "difficulty": "beginner"
+    "lastUpdated": "2024-01-15"
   },
   {
     "id": 18,
@@ -176,8 +159,7 @@
     "category": "System Features",
     "tags": ["mobile", "responsive", "accessibility"],
     "popularity": 79,
-    "lastUpdated": "2024-01-18",
-    "difficulty": "beginner"
+    "lastUpdated": "2024-01-18"
   },
   {
     "id": 19,
@@ -186,8 +168,7 @@
     "category": "Contact Information",
     "tags": ["contact", "support", "helpdesk", "phone", "email"],
     "popularity": 86,
-    "lastUpdated": "2024-01-20",
-    "difficulty": "beginner"
+    "lastUpdated": "2024-01-20"
   },
   {
     "id": 20,
@@ -196,18 +177,16 @@
     "category": "System Information",
     "tags": ["technology", "architecture", "technical details"],
     "popularity": 45,
-    "lastUpdated": "2024-01-12",
-    "difficulty": "advanced"
+    "lastUpdated": "2024-01-12"
   },
   {
     "id": 21,
     "question": "How do I update my profile information?",
-    "answer": "Navigate to your user profile section after logging in. You can update your name, email address, and phone number. Some changes may require email verification for security purposes.",
+    "answer": "Profile Page is still in developement phase. It will be added in future updates.",
     "category": "Account Management",
     "tags": ["profile", "update", "personal information"],
     "popularity": 73,
-    "lastUpdated": "2024-01-17",
-    "difficulty": "beginner"
+    "lastUpdated": "2024-01-17"
   },
   {
     "id": 22,
@@ -216,18 +195,16 @@
     "category": "Privacy & Security",
     "tags": ["security", "privacy", "data protection", "encryption"],
     "popularity": 81,
-    "lastUpdated": "2024-01-19",
-    "difficulty": "intermediate"
+    "lastUpdated": "2024-01-19"
   },
   {
     "id": 23,
     "question": "Can I receive email notifications for ticket updates?",
-    "answer": "Email notifications are automatically sent when your ticket status changes or when an agent responds. You can manage notification preferences in your account settings to customize what updates you receive.",
+    "answer": "Email and other notifications will be added in future updates.",
     "category": "System Features",
     "tags": ["notifications", "email", "updates", "preferences"],
     "popularity": 77,
-    "lastUpdated": "2024-01-18",
-    "difficulty": "beginner"
+    "lastUpdated": "2024-01-18"
   },
   {
     "id": 24,
@@ -236,8 +213,7 @@
     "category": "Troubleshooting",
     "tags": ["performance", "slow", "browser", "troubleshooting"],
     "popularity": 69,
-    "lastUpdated": "2024-01-16",
-    "difficulty": "intermediate"
+    "lastUpdated": "2024-01-16"
   },
   {
     "id": 25,
@@ -246,7 +222,6 @@
     "category": "System Information",
     "tags": ["browser", "requirements", "compatibility"],
     "popularity": 62,
-    "lastUpdated": "2024-01-14",
-    "difficulty": "beginner"
+    "lastUpdated": "2024-01-14"
   }
 ]

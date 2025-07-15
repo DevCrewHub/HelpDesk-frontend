@@ -1,14 +1,21 @@
 import { useEffect, useState } from "react";
 import api from "../../utils/api";
-import Layout from "../../layout/SidebarLayout";
 import { useNavigate } from "react-router-dom";
 import { Trash2 } from "lucide-react";
 import { toast } from "react-toastify";
+import Pagination from "../../components/Pagination";
+
+const ITEMS_PER_PAGE = 4;
 
 const AgentListPage = () => {
   const [agents, setAgents] = useState([]);
   const navigate = useNavigate();
   const userRole = localStorage.getItem("userRole");
+  const [currentPage, setCurrentPage] = useState(1);
+  const currentAgents = agents.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE
+  );
 
   useEffect(() => {
     if(userRole !== "ADMIN"){
@@ -71,7 +78,7 @@ const AgentListPage = () => {
             </tr>
           </thead>
           <tbody>
-            {agents.map((a) => (
+            {currentAgents.map((a) => (
               <tr
                 key={a.id}
                 className="border-t border-gray-200 hover:bg-gray-50 transition-all duration-150"
@@ -102,6 +109,11 @@ const AgentListPage = () => {
           <p className="text-gray-500 text-sm text-center py-6">No agents found.</p>
         )}
       </div>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={Math.ceil(agents.length / ITEMS_PER_PAGE)}
+        onPageChange={setCurrentPage}
+      />
     </div>
   );
 };

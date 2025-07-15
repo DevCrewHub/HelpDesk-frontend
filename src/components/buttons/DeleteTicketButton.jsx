@@ -6,7 +6,7 @@ const DeleteTicketButton = ({ ticketId, onDeleted }) => {
 
     try {
       await api.delete(`/customer/ticket/${ticketId}`);
-      onDeleted?.(ticketId); // optional callback to refresh or remove from UI
+      onDeleted?.(ticketId);
       alert("Ticket deleted successfully.");
     } catch (error) {
       alert("Failed to delete ticket.");

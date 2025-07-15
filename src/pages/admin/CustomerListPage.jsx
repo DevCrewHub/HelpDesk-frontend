@@ -1,14 +1,21 @@
 import { useEffect, useState } from "react";
 import api from "../../utils/api";
-import Layout from "../../layout/SidebarLayout";
 import { useNavigate } from "react-router-dom";
 import { Trash2 } from "lucide-react";
 import { toast } from "react-toastify";
+import Pagination from "../../components/Pagination";
+
+const ITEMS_PER_PAGE = 4;
 
 const CustomerListPage = () => {
   const navigate = useNavigate();
   const userRole = localStorage.getItem("userRole");
   const [customers, setCustomers] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const currentCustomers = customers.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE
+  );
 
   const fetchCustomers = async () => {
     try {
@@ -71,7 +78,7 @@ const CustomerListPage = () => {
             </tr>
           </thead>
           <tbody>
-            {customers.map((c) => (
+            {currentCustomers.map((c) => (
               <tr
                 key={c.id}
                 className="border-t border-gray-200 hover:bg-gray-50 transition-all duration-150"
@@ -102,6 +109,11 @@ const CustomerListPage = () => {
           <p className="text-gray-500 text-sm text-center py-6">No customers found.</p>
         )}
       </div>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={Math.ceil(customers.length / ITEMS_PER_PAGE)}
+        onPageChange={setCurrentPage}
+      />
     </div>
   );
 };

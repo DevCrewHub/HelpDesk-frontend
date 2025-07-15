@@ -1,7 +1,6 @@
-import React, { useState, useMemo, useRef, useEffect } from 'react';
+import { useState, useMemo, useRef, useEffect } from 'react';
 import { BookOpen, Search, TrendingUp, Users, Clock, CheckCircle, Star, Calendar, Tag, ChevronDown, ChevronUp } from 'lucide-react';
 import knowledgeData from '../data/knowledge.json';
-import Layout from '../layout/SidebarLayout';
 import { useNavigate } from 'react-router-dom';
 
 const KnowledgeBase = () => {
@@ -166,19 +165,6 @@ const CategoryButton = ({ label, selected, onClick }) => (
 )
 
 const FAQCard = ({ faq, isExpanded, onToggle }) => {
-  const getDifficultyColor = (difficulty) => {
-    switch (difficulty) {
-      case 'beginner':
-        return 'bg-green-100 text-green-800'
-      case 'intermediate':
-        return 'bg-yellow-100 text-yellow-800'
-      case 'advanced':
-        return 'bg-red-100 text-red-800'
-      default:
-        return 'bg-gray-100 text-gray-800'
-    }
-  }
-
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString('en-US', {
       year: 'numeric',
@@ -194,7 +180,6 @@ const FAQCard = ({ faq, isExpanded, onToggle }) => {
           <div className="flex-1">
             <div className="flex items-center space-x-2 mb-2">
               <span className="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded border border-gray-200">{faq.category}</span>
-              <span className={`text-xs px-2 py-1 rounded ${getDifficultyColor(faq.difficulty)}`}>{faq.difficulty}</span>
               {faq.popularity > 80 && (
                 <div className="flex items-center space-x-1">
                   <Star className="w-3 h-3 text-yellow-500 fill-current" />

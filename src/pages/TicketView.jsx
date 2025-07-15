@@ -24,6 +24,7 @@ const TicketView = () => {
   const isAgent = userRole === "AGENT";
   const isCustomer = userRole === "CUSTOMER";
   const isAdmin = userRole === "ADMIN";
+  const isAssigned = ticket && ticket.agentId === Number(userId);
 
   useEffect(() => {
     const fetchTicket = async () => {
@@ -39,7 +40,7 @@ const TicketView = () => {
       } catch (err) {
         console.error("Ticket not found", err);
         alert("Invalid Ticket");
-        setTicket(null); // Optional: or set an error state
+        setTicket(null);
         navigate("/");
       }
     };
@@ -140,14 +141,9 @@ const TicketView = () => {
           </div>
 
           <div className="flex flex-wrap gap-2 items-center">
-            {isAgent ? (
+            {isAssigned ? (
               <>
-                {ticket.status === "PENDING" && ticket.agentName == null && (
-                  <AssignTicketButton ticketId={ticket.id} onSuccess={() => {}} />
-                )}
-
-                {ticket.status === "INPROGRESS" &&
-                  ticket.agentId === Number(userId) && (
+                {ticket.status === "INPROGRESS" && (
                     <button
                       onClick={handleStatusChange}
                       className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-sm flex items-center"
@@ -157,18 +153,21 @@ const TicketView = () => {
                     </button>
                   )}
 
-                <select
-                  value={ticket.priority}
-                  onChange={(e) => handlePriorityChange(e.target.value)}
-                  className="bg-gray-100 text-sm border border-gray-300 rounded px-2 py-1 cursor-pointer"
-                >
-                  <option value="LOW">Low</option>
-                  <option value="MEDIUM">Medium</option>
-                  <option value="HIGH">High</option>
-                </select>
+                  <select
+                    value={ticket.priority}
+                    onChange={(e) => handlePriorityChange(e.target.value)}
+                    className="bg-gray-100 text-sm border border-gray-300 rounded px-2 py-1 cursor-pointer"
+                  >
+                    <option value="LOW">Low</option>
+                    <option value="MEDIUM">Medium</option>
+                    <option value="HIGH">High</option>
+                  </select>
               </>
             ) : (
               <>
+                {isAgent && ticket.status === "PENDING" && ticket.agentName == null && (
+                  <AssignTicketButton ticketId={ticket.id} onSuccess={() => {}} />
+                )}
                 <span className={getStatusBadge(ticket.status)}>
                   {ticket.status}
                 </span>
