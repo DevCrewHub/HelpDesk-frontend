@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { FaArrowLeft } from "react-icons/fa";
 import api from "../utils/api";
 import { toast } from "react-toastify";
 
@@ -17,7 +18,6 @@ const TicketView = () => {
   const [ticket, setTicket] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
-  const userName = localStorage.getItem("userName");
   const userId = localStorage.getItem("userId");
   const userRole = localStorage.getItem("userRole");
 
@@ -33,23 +33,19 @@ const TicketView = () => {
           : isCustomer
           ? `/customer/ticket/${id}`
           : `/admin/ticket/${id}`;
-      
+
         const res = await api.get(url);
         setTicket(res.data);
       } catch (err) {
         console.error("Ticket not found", err);
         alert("Invalid Ticket");
-        setTicket(null); // Optional: or set an error state
+        setTicket(null);
         navigate("/");
       }
     };
-  
-    fetchTicket();
-  }, [id, isAgent, isCustomer]);
 
-  const fetchTicketDetails = () => {
-    return ticket;
-  };
+    fetchTicket();
+  }, [id, isAgent, isCustomer, navigate]);
 
   const formatDate = (isoString) => {
     const date = new Date(isoString);
@@ -88,8 +84,6 @@ const TicketView = () => {
       });
   };
 
-  if (!ticket) return <div className="px-6 py-4">Loading...</div>;
-
   const getStatusBadge = (status) => {
     const base = "text-xs font-semibold px-2 py-1 rounded-full";
     switch (status) {
@@ -120,13 +114,23 @@ const TicketView = () => {
     }
   };
 
+  if (!ticket) return <div className="px-6 py-4">Loading...</div>;
+
   return (
     <div className="flex-grow px-6 py-2">
-      <div className="-mx-6 border-b border-gray-300 bg-gray-50 pb-2 mb-6">
-        <h1 className="text-2xl font-semibold tracking-tight px-6 pt-2 pb-4">
-          Ticket Details
-        </h1>
-      </div>
+      <div className="-mx-6 border-b border-gray-300 bg-gray-50 pb-2 mb-6 flex items-center justify-between px-6 pt-2">
+  <h1 className="text-2xl font-semibold tracking-tight">
+    Ticket Details
+  </h1>
+  <button
+    onClick={() => navigate("/tickets")}
+    className="text-sm text-indigo-600 hover:underline flex items-center gap-1 cursor-pointer"
+  >
+    <FaArrowLeft className="w-4 h-4" />
+    Back to Tickets
+  </button>
+</div>
+
 
       <div className="bg-white p-6 rounded shadow-sm border border-gray-200 mb-6">
         <div className="flex justify-between items-start flex-wrap gap-4 mb-4">
@@ -140,6 +144,11 @@ const TicketView = () => {
           </div>
 
           <div className="flex flex-wrap gap-2 items-center">
+            {/* Always show status */}
+            <span className={getStatusBadge(ticket.status)}>
+              {ticket.status}
+            </span>
+
             {isAgent ? (
               <>
                 {ticket.status === "PENDING" && ticket.agentName == null && (
@@ -160,7 +169,7 @@ const TicketView = () => {
                 <select
                   value={ticket.priority}
                   onChange={(e) => handlePriorityChange(e.target.value)}
-                  className="bg-gray-100 text-sm border border-gray-300 rounded px-2 py-1 cursor-pointer"
+                  className="bg-indigo-100 text-sm border-indigo-600 rounded px-2 py-1 hover:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition cursor-pointer"
                 >
                   <option value="LOW">Low</option>
                   <option value="MEDIUM">Medium</option>
@@ -169,9 +178,6 @@ const TicketView = () => {
               </>
             ) : (
               <>
-                <span className={getStatusBadge(ticket.status)}>
-                  {ticket.status}
-                </span>
                 <span className={getPriorityBadge(ticket.priority)}>
                   {ticket.priority}
                 </span>
@@ -193,7 +199,7 @@ const TicketView = () => {
                 {isAdmin && !ticket.agentName && (
                   <>
                     <button
-                      className="bg-indigo-600 text-white px-3 py-1 rounded text-sm hover:bg-indigo-700"
+                      className="bg-indigo-600 text-white px-3 py-1 rounded text-sm hover:bg-indigo-700 cursor-pointer"
                       onClick={() => setShowModal(true)}
                     >
                       Assign to Agent
