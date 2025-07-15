@@ -1,7 +1,6 @@
-import React, { useState, useMemo, useRef, useEffect } from 'react';
+import { useState, useMemo, useRef, useEffect } from 'react';
 import { BookOpen, Search, TrendingUp, Users, Clock, CheckCircle, Star, Calendar, Tag, ChevronDown, ChevronUp } from 'lucide-react';
-import knowledgeData from '../data/knowledge.json';
-import Layout from '../layout/SidebarLayout';
+import knowledgeData from '../../data/knowledge.json';
 import { useNavigate } from 'react-router-dom';
 
 const KnowledgeBase = () => {

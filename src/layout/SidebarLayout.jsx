@@ -1,11 +1,9 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import Sidebar from "../components/Sidebar";
 import { FiFileText, FiUser } from "react-icons/fi";
 import { GoPlusCircle } from "react-icons/go";
 import { FaBars, FaBook, FaHamburger, FaSignOutAlt, FaUserCheck, FaUserPlus } from "react-icons/fa";
 import { Outlet, useNavigate } from "react-router-dom";
-import { MdApartment, MdMoreHoriz } from "react-icons/md";
-import { HamburgerIcon } from "lucide-react";
 
 const Layout = () => {
   const navigate = useNavigate();

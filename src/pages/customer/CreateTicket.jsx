@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import api from "../utils/api";
-import Layout from "../layout/SidebarLayout";
+import api from "../../utils/api";
 import { toast } from "react-toastify";
 
 const CreateTicket = () => {
