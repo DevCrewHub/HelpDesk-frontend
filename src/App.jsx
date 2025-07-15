@@ -3,12 +3,12 @@ import './App.css';
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 
 import AuthPage from "./pages/AuthPage";
-import AgentDashboard from "./pages/AgentDashboard";
+import Dashboard from "./pages/Dashboard";
 import TicketView from "./pages/TicketView";
 import AllTickets from "./pages/AllTickets";
-import CreateTicket from "./pages/CreateTicket";
-import KnowledgeBase from "./pages/KnowledgeBase";
-import AgentRegistrationPage from "./pages/AgentRegistrationPage";
+import CreateTicket from "./pages/customer/CreateTicket";
+import KnowledgeBase from "./pages/customer/KnowledgeBase";
+import AgentRegistrationPage from "./pages/admin/AgentRegistrationPage";
 import AssignedTickets from "./pages/AssignedTickets";
 import AgentListPage from "./pages/admin/AgentListPage";
 import CustomerListPage from "./pages/admin/CustomerListPage";
@@ -72,7 +72,7 @@ const App = () => {
         <Route path="/" element={<SidebarLayout />}>
           <Route index element={
             <ProtectedRoute isAuthenticated={isAuthenticated}>
-              <AgentDashboard />
+              <Dashboard />
             </ProtectedRoute>
           } />
 

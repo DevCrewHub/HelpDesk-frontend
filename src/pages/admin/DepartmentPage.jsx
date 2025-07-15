@@ -1,15 +1,22 @@
 import { useEffect, useState } from "react";
-import Layout from "../../layout/SidebarLayout";
 import DepartmentTable from "../../components/department/DepartmentTable";
 import DepartmentForm from "../../components/department/DepartmentForm";
 import api from "../../utils/api";
 import { useNavigate } from "react-router-dom";
+import Pagination from "../../components/Pagination";
 
 const DepartmentPage = () => {
   const [departments, setDepartments] = useState([]);
   const [error, setError] = useState("");
   const [showForm, setShowForm] = useState(false);
   const [editDeptId, setEditDeptId] = useState(null);
+  
+  const [currentPage, setCurrentPage] = useState(1);
+  const ITEMS_PER_PAGE = 4;
+  const currentDepartments = departments.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE
+  );
 
   const fetchDepartments = async () => {
     try {
@@ -78,7 +85,7 @@ const DepartmentPage = () => {
       {/* Department Table */}
       <div className="overflow-x-auto bg-white shadow-md rounded-xl border border-gray-300">
         <DepartmentTable
-          departments={departments}
+          departments={currentDepartments}
           onDelete={handleDelete}
           onEdit={handleEdit}
         />
@@ -94,6 +101,12 @@ const DepartmentPage = () => {
           departmentId={editDeptId}
         />
       )}
+
+      <Pagination
+        currentPage={currentPage}
+        totalPages={Math.ceil(departments.length / ITEMS_PER_PAGE)}
+        onPageChange={setCurrentPage}
+      />
     </div>
   );
 };

@@ -21,7 +21,7 @@ const AllTickets = () => {
   const isAgent = userRole === "AGENT";
   const isAdmin = userRole === "ADMIN";
 
-  // 🔁 Fetch all tickets based on role
+  // Fetch all tickets based on role
   const fetchTickets = async () => {
     try {
       setLoading(true);
@@ -42,7 +42,7 @@ const AllTickets = () => {
     }
   };
 
-  // 🔍 Search by title
+  // Search by title
   useEffect(() => {
     const fetchSearchedTickets = async () => {
       if (!query.trim()) {

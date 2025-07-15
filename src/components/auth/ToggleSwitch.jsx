@@ -1,5 +1,3 @@
-// components/ToggleSwitch.jsx
-import React from 'react';
 import { LogIn, UserPlus } from 'lucide-react';
 
 const ToggleSwitch = ({ isLogin, setIsLogin, clearForms }) => {

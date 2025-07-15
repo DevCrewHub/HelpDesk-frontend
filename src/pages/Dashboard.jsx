@@ -1,13 +1,8 @@
 import { useEffect, useState } from "react";
-import Searchbar from "../components/Searchbar";
-import TicketTable from "../components/TicketTable";
-import Sidebar from "../components/Sidebar";
-import Filters from "../components/Filters";
-import Layout from "../layout/SidebarLayout";
 import { FaCheckCircle, FaSpinner, FaTicketAlt, FaTimesCircle, FaUserCheck } from "react-icons/fa";
 import api from "../utils/api";
 
-const AgentDashboard = () => {
+const Dashboard = () => {
   const [tickets, setTickets] = useState([]);
   const role = localStorage.getItem("userRole");
   const isAgent = role === "AGENT";
@@ -19,7 +14,7 @@ const AgentDashboard = () => {
 
   const fetchtickets = async () => {
     try {
-      const url = isAgent ? "/agent/tickets" : isCustomer ? "/customer/ticketsCreated" : "/admin/tickets";
+      const url = isAgent ? "/agent/assigned/tickets" : isCustomer ? "/customer/ticketsCreated" : "/admin/tickets";
       const response = await api.get(url);
       setTickets(response.data);
     } catch (error) {
@@ -34,7 +29,7 @@ const AgentDashboard = () => {
   const closed = tickets.filter(ticket => ticket.status === "CLOSED").length;
 
   const items = [
-    { label: "Total Tickets", count: total, icon: <FaTicketAlt className="text-blue-500 w-6 h-6" /> },
+    { label: isAgent ? "Assigned Tickets" : "Total Tickets", count: total, icon: <FaTicketAlt className="text-blue-500 w-6 h-6" /> },
     { label: "Pending Tickets", count: pending, icon: <FaUserCheck className="text-yellow-500 w-6 h-6" /> },
     { label: "In Progress Tickets", count: inProgress, icon: <FaSpinner className="text-orange-500 w-6 h-6 animate-spin" /> },
     { label: "Resolved Tickets", count: resolved, icon: <FaCheckCircle className="text-green-500 w-6 h-6" /> },
@@ -74,4 +69,4 @@ const AgentDashboard = () => {
   );
 };
 
-export default AgentDashboard;
+export default Dashboard;
