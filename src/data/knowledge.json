@@ -2,251 +2,226 @@
   {
     "id": 1,
     "question": "How do I register a new account?",
-    "answer": "Click the 'Register' button on the login page, enter your details, and submit the form. Make sure to use a valid email address as you may need it for account verification.",
+    "answer": "Click the Register button on the login page, fill in your details, and submit the form. Your account will be created as a Customer by default. Use a valid email to ensure communication and ticket updates.",
     "category": "Account Management",
     "tags": ["registration", "account", "signup"],
     "popularity": 95,
-    "lastUpdated": "2024-01-15",
-    "difficulty": "beginner"
+    "lastUpdated": "2025-07-15"
   },
   {
     "id": 2,
     "question": "What information do I need to register?",
-    "answer": "You'll need to provide your full name, email address, phone number, username, and a strong password. Ensure your password contains at least 8 characters with a mix of letters, numbers, and special characters.",
+    "answer": "Provide your full name, email, phone number, username, and a secure password. Passwords must be at least 8 characters with a mix of uppercase, lowercase, numbers, and special characters.",
     "category": "Account Management",
     "tags": ["registration", "requirements", "password"],
     "popularity": 88,
-    "lastUpdated": "2024-01-10",
-    "difficulty": "beginner"
+    "lastUpdated": "2025-07-15"
   },
   {
     "id": 3,
     "question": "How do I log in to the system?",
-    "answer": "Navigate to the login page, enter your username and password, and click on the 'Login' button. If you're having trouble, make sure your caps lock is off and you're using the correct credentials.",
+    "answer": "Visit the login page, enter your registered username and password, and click Login. You'll be authenticated via JWT token and redirected to your role-specific dashboard.",
     "category": "Account Management",
     "tags": ["login", "authentication", "access"],
     "popularity": 92,
-    "lastUpdated": "2024-01-12",
-    "difficulty": "beginner"
+    "lastUpdated": "2025-07-15"
   },
   {
     "id": 4,
     "question": "I forgot my password. How do I recover it?",
-    "answer": "Password recovery is currently not supported through the automated system. Please contact an admin or support team at support@example.com for immediate assistance with password reset.",
+    "answer": "Currently, password recovery isn't automated. Please email admin@helpdeskpro.com with your username to request a password reset.",
     "category": "Account Management",
     "tags": ["password", "recovery", "reset", "support"],
     "popularity": 85,
-    "lastUpdated": "2024-01-08",
-    "difficulty": "intermediate"
+    "lastUpdated": "2025-07-15"
   },
   {
     "id": 5,
     "question": "How can I change my password?",
-    "answer": "This feature is not available yet in the user interface. You'll need to contact an administrator at support@example.com for password updates. We're working on implementing self-service password changes.",
+    "answer": "Password change functionality is not yet available in the UI. Please contact an admin at admin@helpdeskpro.com to request a password update.",
     "category": "Account Management",
     "tags": ["password", "change", "security"],
     "popularity": 78,
-    "lastUpdated": "2024-01-05",
-    "difficulty": "intermediate"
+    "lastUpdated": "2025-07-15"
   },
   {
     "id": 6,
     "question": "How do I create a support ticket?",
-    "answer": "After logging in, navigate to the 'Create Ticket' page from the main menu. Fill in all required fields including subject, description, and priority level, then submit the form. You'll receive a confirmation with your ticket number.",
+    "answer": "After login, go to the Create Ticket page, fill in the subject, description, priority, and department, then click Submit. You’ll get a confirmation message, and your ticket will appear under My Tickets.",
     "category": "Support Tickets",
     "tags": ["tickets", "support", "create", "help"],
     "popularity": 90,
-    "lastUpdated": "2024-01-18",
-    "difficulty": "beginner"
+    "lastUpdated": "2025-07-15"
   },
   {
     "id": 7,
     "question": "What details are required in a ticket?",
-    "answer": "Include a clear, descriptive subject line, detailed description of the issue, priority level (Low, Medium, High, Urgent), and any relevant screenshots or error messages. The more details you provide, the faster we can resolve your issue.",
+    "answer": "Include a clear subject, detailed description, priority level (Low/Medium/High), and choose the relevant department. Adding context helps assigned agents resolve your issue faster.",
     "category": "Support Tickets",
     "tags": ["tickets", "requirements", "details"],
     "popularity": 82,
-    "lastUpdated": "2024-01-16",
-    "difficulty": "beginner"
+    "lastUpdated": "2025-07-15"
   },
   {
     "id": 8,
     "question": "Can I view the tickets I submitted?",
-    "answer": "Yes. Navigate to the 'All Tickets' section after login to view all your submitted tickets. You can filter by status, date, or priority to find specific tickets quickly.",
+    "answer": "Yes. Use the View Tickets section in your dashboard to see all your submitted tickets, along with filters for status, priority, and department.",
     "category": "Support Tickets",
     "tags": ["tickets", "view", "history", "tracking"],
     "popularity": 87,
-    "lastUpdated": "2024-01-14",
-    "difficulty": "beginner"
+    "lastUpdated": "2025-07-15"
   },
   {
     "id": 9,
     "question": "How do I check the status of my ticket?",
-    "answer": "Open the ticket from 'All Tickets' section. You'll see its current status: 'Open' (awaiting review), 'In Progress' (being worked on), 'Pending' (waiting for your response), or 'Resolved' (completed).",
+    "answer": "Each ticket shows its current status: Pending (awaiting agent assignment), In Progress (being handled by an agent), Resolved (agent has provided a solution), or Closed (you have confirmed the issue is resolved). You can view this in the 'My Tickets' section.",
     "category": "Support Tickets",
     "tags": ["status", "tracking", "progress"],
     "popularity": 89,
-    "lastUpdated": "2024-01-17",
-    "difficulty": "beginner"
+    "lastUpdated": "2025-07-15"
   },
   {
     "id": 10,
     "question": "What do the ticket statuses mean?",
-    "answer": "'Open' means newly created and awaiting assignment, 'In Progress' means actively being worked on by an agent, 'Pending' means waiting for additional information from you, and 'Resolved' means the issue has been completed.",
+    "answer": "Pending: Your ticket has been submitted and is awaiting agent assignment. In Progress: An agent is currently working on it. Resolved: The agent has provided a solution and is waiting for your confirmation. Closed: You have marked the ticket as resolved and closed it.",
     "category": "Support Tickets",
     "tags": ["status", "definitions", "workflow"],
     "popularity": 75,
-    "lastUpdated": "2024-01-13",
-    "difficulty": "intermediate"
+    "lastUpdated": "2025-07-15"
   },
   {
     "id": 11,
     "question": "Can I delete a ticket?",
-    "answer": "Ticket deletion is restricted to maintain audit trails and support quality. If you need to cancel or modify a ticket, please contact the support team or add a comment to the existing ticket.",
+    "answer": "Yes. As a customer, you can delete your own tickets from the View Tickets section. Agents and Admins cannot delete tickets submitted by others. Deleted tickets are permanently removed from your view.",
     "category": "Support Tickets",
     "tags": ["delete", "modify", "cancel"],
     "popularity": 65,
-    "lastUpdated": "2024-01-11",
-    "difficulty": "intermediate"
+    "lastUpdated": "2025-07-15"
   },
   {
     "id": 12,
     "question": "Who can see my submitted tickets?",
-    "answer": "Only you (the ticket creator), assigned support agents, and system administrators have access to your ticket details. Your privacy and confidentiality are protected.",
+    "answer": "Only you (as the customer), the assigned agent, and admins can access your ticket. Data is protected using role-based access and JWT-authenticated sessions.",
     "category": "Privacy & Security",
     "tags": ["privacy", "access", "security", "confidentiality"],
     "popularity": 72,
-    "lastUpdated": "2024-01-09",
-    "difficulty": "beginner"
+    "lastUpdated": "2025-07-15"
   },
   {
     "id": 13,
     "question": "Can I assign a ticket to an agent?",
-    "answer": "No, tickets are automatically assigned by the system based on agent availability and expertise, or manually assigned by administrators to ensure optimal resource allocation.",
+    "answer": "No. Tickets are either manually assigned by an admin or picked up by agents themselves from the unassigned list. Customers cannot assign tickets directly.",
     "category": "Support Tickets",
     "tags": ["assignment", "agents", "workflow"],
     "popularity": 58,
-    "lastUpdated": "2024-01-07",
-    "difficulty": "intermediate"
+    "lastUpdated": "2025-07-15"
   },
   {
     "id": 14,
     "question": "What roles are supported in the system?",
-    "answer": "The system supports three main roles: Customer (default for all registered users), Agent (for support staff with ticket management capabilities), and Admin (full system control and user management).",
+    "answer": "The system has three roles: Customer (ticket creation), Agent (ticket management), and Admin (full control including assignment and user management).",
     "category": "System Information",
     "tags": ["roles", "permissions", "access levels"],
     "popularity": 68,
-    "lastUpdated": "2024-01-06",
-    "difficulty": "intermediate"
+    "lastUpdated": "2025-07-15"
   },
   {
     "id": 15,
     "question": "I registered, but can't log in. What do I do?",
-    "answer": "First, verify your username and password are correct. Check if caps lock is on. Clear your browser cache and cookies. If the problem persists, contact support at support@example.com with your username (never share your password).",
+    "answer": "Double-check your username and password, and ensure caps lock is off. Clear your browser cache and try again. If it still fails, contact support.",
     "category": "Troubleshooting",
     "tags": ["login issues", "troubleshooting", "access problems"],
     "popularity": 83,
-    "lastUpdated": "2024-01-19",
-    "difficulty": "intermediate"
+    "lastUpdated": "2025-07-15"
   },
   {
     "id": 16,
     "question": "Why is my ticket not yet resolved?",
-    "answer": "Tickets are prioritized based on urgency and complexity. High-priority issues are addressed first. Response times vary: Urgent (2-4 hours), High (4-8 hours), Medium (1-2 days), Low (2-5 days). Complex issues may take longer to investigate and resolve.",
+    "answer": "Tickets are resolved based on their priority: High (4–8 hrs), Medium (1–2 days), and Low (2–4 days). Complex issues may take longer. You can filter tickets based on priority to check your queue.",
     "category": "Support Tickets",
     "tags": ["resolution time", "priority", "expectations"],
     "popularity": 76,
-    "lastUpdated": "2024-01-16",
-    "difficulty": "beginner"
+    "lastUpdated": "2025-07-15"
   },
   {
     "id": 17,
     "question": "Can I upload images with my ticket?",
-    "answer": "Image upload functionality is currently under development. For now, you can describe the issue in detail or include links to screenshots hosted on external services. This feature will be available soon.",
+    "answer": "Image upload is not available yet. For now, describe the issue clearly or include external screenshot links.",
     "category": "System Features",
     "tags": ["attachments", "images", "upcoming features"],
     "popularity": 71,
-    "lastUpdated": "2024-01-15",
-    "difficulty": "beginner"
+    "lastUpdated": "2025-07-15"
   },
   {
     "id": 18,
     "question": "Is there a mobile version of the site?",
-    "answer": "Yes! The platform features a fully responsive design that works seamlessly on mobile browsers, tablets, and desktop computers. No separate mobile app is needed - just use your mobile browser.",
+    "answer": "Yes. The app is responsive and works well on all screen sizes. You can access it using any modern mobile browser.",
     "category": "System Features",
     "tags": ["mobile", "responsive", "accessibility"],
     "popularity": 79,
-    "lastUpdated": "2024-01-18",
-    "difficulty": "beginner"
+    "lastUpdated": "2025-07-15"
   },
   {
     "id": 19,
     "question": "How do I contact the HelpDesk team?",
-    "answer": "You can reach our support team through multiple channels: Email us at support@example.com, call our helpline at 1800-123-456 (Mon-Fri, 9 AM - 6 PM), or create a support ticket through the platform for non-urgent matters.",
+    "answer": "Create a ticket using the Create Ticket page for any issues. Direct contact with admins is not currently shown on the dashboard. More contact options will be added in future updates.",
     "category": "Contact Information",
     "tags": ["contact", "support", "helpdesk", "phone", "email"],
     "popularity": 86,
-    "lastUpdated": "2024-01-20",
-    "difficulty": "beginner"
+    "lastUpdated": "2025-07-15"
   },
   {
     "id": 20,
     "question": "What technologies are used in this platform?",
-    "answer": "The platform is built with modern technologies: React.js for the frontend interface, Spring Boot with Java for the backend services, MySQL for data storage, and REST APIs for communication. We also use industry-standard security protocols.",
+    "answer": "HelpDesk Pro uses React.js with Tailwind CSS for the frontend, Spring Boot with JWT authentication for the backend, MySQL for data, and REST APIs for communication.",
     "category": "System Information",
     "tags": ["technology", "architecture", "technical details"],
     "popularity": 45,
-    "lastUpdated": "2024-01-12",
-    "difficulty": "advanced"
+    "lastUpdated": "2025-07-15"
   },
   {
     "id": 21,
     "question": "How do I update my profile information?",
-    "answer": "Navigate to your user profile section after logging in. You can update your name, email address, and phone number. Some changes may require email verification for security purposes.",
+    "answer": "Profile update functionality is currently not available. If you need to change your contact information, please contact the admin at admin@helpdeskpro.com for manual support.",
     "category": "Account Management",
     "tags": ["profile", "update", "personal information"],
     "popularity": 73,
-    "lastUpdated": "2024-01-17",
-    "difficulty": "beginner"
+    "lastUpdated": "2025-07-15"
   },
   {
     "id": 22,
     "question": "Is my data secure on this platform?",
-    "answer": "Yes, we implement industry-standard security measures including data encryption, secure authentication, regular security audits, and compliance with data protection regulations. Your personal information is never shared with third parties.",
+    "answer": "Yes. The platform uses JWT authentication, secure HTTPS, role-based access, and industry-standard data protection measures.",
     "category": "Privacy & Security",
     "tags": ["security", "privacy", "data protection", "encryption"],
     "popularity": 81,
-    "lastUpdated": "2024-01-19",
-    "difficulty": "intermediate"
+    "lastUpdated": "2025-07-15"
   },
   {
     "id": 23,
     "question": "Can I receive email notifications for ticket updates?",
-    "answer": "Email notifications are automatically sent when your ticket status changes or when an agent responds. You can manage notification preferences in your account settings to customize what updates you receive.",
+    "answer": "Email notifications are currently not supported. Please check your ticket status regularly by logging into your account.",
     "category": "System Features",
     "tags": ["notifications", "email", "updates", "preferences"],
     "popularity": 77,
-    "lastUpdated": "2024-01-18",
-    "difficulty": "beginner"
+    "lastUpdated": "2025-07-15"
   },
   {
     "id": 24,
     "question": "What should I do if the system is running slowly?",
-    "answer": "Try clearing your browser cache, disabling browser extensions, checking your internet connection, or switching to a different browser. If the issue persists across multiple devices, contact support as there may be a system-wide issue.",
+    "answer": "Refresh the page, clear your browser cache, or try another browser. If the issue persists, contact support. Backend issues may be involved.",
     "category": "Troubleshooting",
     "tags": ["performance", "slow", "browser", "troubleshooting"],
     "popularity": 69,
-    "lastUpdated": "2024-01-16",
-    "difficulty": "intermediate"
+    "lastUpdated": "2025-07-15"
   },
   {
     "id": 25,
     "question": "Are there any browser requirements?",
-    "answer": "The platform works best on modern browsers: Chrome 90+, Firefox 88+, Safari 14+, and Edge 90+. JavaScript must be enabled, and we recommend keeping your browser updated for the best experience and security.",
+    "answer": "Use modern browsers like Chrome 90+, Firefox 88+, Edge 90+, or Safari 14+. Ensure JavaScript is enabled for best performance.",
     "category": "System Information",
     "tags": ["browser", "requirements", "compatibility"],
     "popularity": 62,
-    "lastUpdated": "2024-01-14",
-    "difficulty": "beginner"
+    "lastUpdated": "2025-07-15"
   }
 ]

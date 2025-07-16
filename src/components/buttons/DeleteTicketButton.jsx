@@ -1,4 +1,5 @@
 import api from "../../utils/api";
+import { toast } from "react-toastify";
 
 const DeleteTicketButton = ({ ticketId, onDeleted }) => {
   const handleDelete = async () => {
@@ -7,9 +8,9 @@ const DeleteTicketButton = ({ ticketId, onDeleted }) => {
     try {
       await api.delete(`/customer/ticket/${ticketId}`);
       onDeleted?.(ticketId); // optional callback to refresh or remove from UI
-      alert("Ticket deleted successfully.");
+      toast.success("Ticket deleted successfully.");
     } catch (error) {
-      alert("Failed to delete ticket.");
+      toast.error("Failed to delete ticket.");
       console.error(error);
     }
   };

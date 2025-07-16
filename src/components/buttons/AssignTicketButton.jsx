@@ -1,15 +1,17 @@
 import api from "../../utils/api";
 import { FaUserPlus } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 const AssignTicketButton = ({ ticketId, onSuccess }) => {
   const assignTicket = async () => {
     try {
       await api.put(`/agent/tickets/${ticketId}/assign`);
-      alert("Ticket assigned successfully.");
+      toast.success("Ticket assigned successfully.");
       if (onSuccess) onSuccess();
+      window.location.reload();
     } catch (error) {
       console.error("Error assigning ticket:", error);
-      alert("Failed to assign ticket.");
+      toast.error("Failed to assign ticket.");
     }
   };
 

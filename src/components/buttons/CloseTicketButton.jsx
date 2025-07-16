@@ -1,5 +1,6 @@
 import api from "../../utils/api";
 import { FaTimesCircle } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 const CloseTicketButton = ({ ticketId, onSuccess }) => {
 
@@ -10,11 +11,11 @@ const CloseTicketButton = ({ ticketId, onSuccess }) => {
       await api.put(`/customer/tickets/${ticketId}/status`, null, {
         params: { status: "CLOSED" }
       });
-      alert("Ticket closed successfully.");
+      toast.success("Ticket closed successfully.");
       if(onSuccess) onSuccess();
     } catch (error) {
       console.error("Error closing ticket:", error);
-      alert("Failed to close ticket. Please try again.");
+      toast.error("Failed to close ticket. Please try again.");
     }
   };
 
