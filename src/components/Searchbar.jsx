@@ -13,7 +13,7 @@ const Searchbar = ({ query, setQuery, searching }) => {
       <div className="flex w-full max-w-lg overflow-hidden rounded-md border border-gray-300 bg-white shadow-sm focus-within:ring-2 focus-within:ring-indigo-500">
         <input
           type="text"
-          placeholder="Search tickets..."
+          placeholder="Search tickets by title..."
           value={temp}
           onChange={(e) => {
             setTemp(e.target.value);
