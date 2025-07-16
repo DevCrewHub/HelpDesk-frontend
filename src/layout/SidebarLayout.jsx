@@ -64,6 +64,15 @@ const Layout = () => {
           </button>
           </>
         )}
+        {userRole !== "ADMIN" && (
+        <button onClick={() => {
+          localStorage.clear();
+          navigate("/login");
+        }} className="flex flex-col items-center text-sm text-gray-700">
+            <FaSignOutAlt className="w-5 h-5 mb-1" />
+            Logout
+        </button>
+        )}
       </div>
     </div>
   );
