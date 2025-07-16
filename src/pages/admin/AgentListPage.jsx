@@ -53,7 +53,7 @@ const AgentListPage = () => {
   }, []);
 
   return (
-    <div className="flex-grow px-6 py-2">
+    <div className="flex-grow px-6 py-2 overflow-x-scroll">
       {/* Page Header */}
       <div className="-mx-6 border-b border-gray-300 bg-gradient-to-b from-white to-gray-50 mt-2 pb-2 mb-6">
         <h1 className="text-2xl font-semibold tracking-tight  pb-2 px-6">All Agents</h1>
@@ -65,7 +65,7 @@ const AgentListPage = () => {
       {/*table section*/}
       {loading ? (
         <p className="text-gray-600">Loading Agents...</p>) : 
-        <div className="overflow-x-auto bg-white shadow-md rounded-xl border border-gray-300">
+        <div className="overflow-x-scroll bg-white shadow-md rounded-xl border border-gray-300">
         <table className="min-w-full table-auto text-sm text-left border-collapse">
           <thead className="bg-gray-100 border-b border-gray-300">
             <tr>
