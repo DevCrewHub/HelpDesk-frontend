@@ -5,59 +5,59 @@ import { useNavigate } from 'react-router-dom';
 
 const KnowledgeBase = () => {
   const navigate = useNavigate();
-  const [searchTerm, setSearchTerm] = useState('')
-  const [selectedCategory, setSelectedCategory] = useState('All')
-  const [expandedId, setExpandedId] = useState(null)
-  const [filteredList, setFilteredList] = useState(knowledgeData)
-  const faqRefs = useRef({})
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [expandedId, setExpandedId] = useState(null);
+  const [filteredList, setFilteredList] = useState(knowledgeData);
+  const faqRefs = useRef({});
 
-  const categories = [...new Set(knowledgeData.map(faq => faq.category))]
+  const categories = [...new Set(knowledgeData.map(faq => faq.category))];
 
   useEffect(() => {
     const userRole = localStorage.getItem("userRole");
-    if(userRole !== "CUSTOMER"){
+    if (userRole !== "CUSTOMER") {
       navigate('/dashboard');
     }
-  })
+  });
 
   const filteredFAQs = useMemo(() => {
     const list = knowledgeData.filter(faq => {
-      const matchesSearch = `${faq.question} ${faq.answer}`.toLowerCase().includes(searchTerm.toLowerCase())
-      const matchesCategory = selectedCategory === 'All' || faq.category === selectedCategory
-      return matchesSearch && matchesCategory
-    })
-    setFilteredList(list)
-    return list
-  }, [searchTerm, selectedCategory])
+      const matchesSearch = `${faq.question} ${faq.answer}`.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesCategory = selectedCategory === 'All' || faq.category === selectedCategory;
+      return matchesSearch && matchesCategory;
+    });
+    setFilteredList(list);
+    return list;
+  }, [searchTerm, selectedCategory]);
 
   const popularFAQs = knowledgeData
     .sort((a, b) => b.popularity - a.popularity)
-    .slice(0, 5)
+    .slice(0, 5);
 
-  const totalFAQs = knowledgeData.length
-  const totalCategories = categories.length
+  const totalFAQs = knowledgeData.length;
+  const totalCategories = categories.length;
   const recentlyUpdated = knowledgeData.filter(faq => {
-    const updateDate = new Date(faq.lastUpdated)
-    const oneWeekAgo = new Date()
-    oneWeekAgo.setDate(oneWeekAgo.getDate() - 7)
-    return updateDate > oneWeekAgo
-  }).length
+    const updateDate = new Date(faq.lastUpdated);
+    const oneWeekAgo = new Date();
+    oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+    return updateDate > oneWeekAgo;
+  }).length;
 
   const scrollToFaq = (id) => {
-    const faq = knowledgeData.find(f => f.id === id)
+    const faq = knowledgeData.find(f => f.id === id);
     if (faq) {
-      setSearchTerm('')
-      setSelectedCategory('All')
-      setFilteredList([faq])
-      setExpandedId(id)
+      setSearchTerm('');
+      setSelectedCategory('All');
+      setFilteredList([faq]);
+      setExpandedId(id);
       setTimeout(() => {
-        const el = faqRefs.current[id]
+        const el = faqRefs.current[id];
         if (el) {
-          el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
-      }, 100)
+      }, 100);
     }
-  }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 to-white py-12 px-4 sm:px-6 lg:px-8">
@@ -138,8 +138,8 @@ const KnowledgeBase = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 const StatCard = ({ icon, title, value, color }) => (
   <div className={`bg-white border border-gray-200 shadow-md hover:shadow-lg transition-shadow rounded-lg p-6`}>
@@ -151,7 +151,7 @@ const StatCard = ({ icon, title, value, color }) => (
       </div>
     </div>
   </div>
-)
+);
 
 const CategoryButton = ({ label, selected, onClick }) => (
   <button
@@ -162,29 +162,16 @@ const CategoryButton = ({ label, selected, onClick }) => (
   >
     {label}
   </button>
-)
+);
 
 const FAQCard = ({ faq, isExpanded, onToggle }) => {
-  const getDifficultyColor = (difficulty) => {
-    switch (difficulty) {
-      case 'beginner':
-        return 'bg-green-100 text-green-800'
-      case 'intermediate':
-        return 'bg-yellow-100 text-yellow-800'
-      case 'advanced':
-        return 'bg-red-100 text-red-800'
-      default:
-        return 'bg-gray-100 text-gray-800'
-    }
-  }
-
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'short',
       day: 'numeric',
-    })
-  }
+    });
+  };
 
   return (
     <div className="bg-white border border-gray-200 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 group">
@@ -193,7 +180,6 @@ const FAQCard = ({ faq, isExpanded, onToggle }) => {
           <div className="flex-1">
             <div className="flex items-center space-x-2 mb-2">
               <span className="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded border border-gray-200">{faq.category}</span>
-              <span className={`text-xs px-2 py-1 rounded ${getDifficultyColor(faq.difficulty)}`}>{faq.difficulty}</span>
               {faq.popularity > 80 && (
                 <div className="flex items-center space-x-1">
                   <Star className="w-3 h-3 text-yellow-500 fill-current" />
@@ -242,7 +228,7 @@ const FAQCard = ({ faq, isExpanded, onToggle }) => {
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default KnowledgeBase
+export default KnowledgeBase;

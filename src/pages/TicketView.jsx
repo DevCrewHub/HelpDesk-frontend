@@ -160,7 +160,7 @@ const TicketView = () => {
                   isAssigned && (
                     <button
                       onClick={handleStatusChange}
-                      className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-sm flex items-center"
+                      className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-sm flex items-center cursor-pointer"
                     >
                       <FaCheck className="mr-1" />
                       Mark as Resolved
