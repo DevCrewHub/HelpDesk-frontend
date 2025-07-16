@@ -10,6 +10,7 @@ const DepartmentPage = () => {
   const [error, setError] = useState("");
   const [showForm, setShowForm] = useState(false);
   const [editDeptId, setEditDeptId] = useState(null);
+  const [loading, setLoading] = useState(true);
   
   const [currentPage, setCurrentPage] = useState(1);
   const ITEMS_PER_PAGE = 4;
@@ -20,11 +21,14 @@ const DepartmentPage = () => {
 
   const fetchDepartments = async () => {
     try {
+      setLoading(true);
       const res = await api.get("/admin/department");
       const sorted = res.data.sort((a, b) => a.id - b.id); // ascending order
       setDepartments(sorted);
     } catch (err) {
       setError("Failed to load departments");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -83,16 +87,19 @@ const DepartmentPage = () => {
       </div>
 
       {/* Department Table */}
-      <div className="overflow-x-auto bg-white shadow-md rounded-xl border border-gray-300">
-        <DepartmentTable
-          departments={currentDepartments}
-          onDelete={handleDelete}
-          onEdit={handleEdit}
-        />
-        {departments.length === 0 && (
-          <p className="text-gray-500 text-sm text-center py-6">No departments found.</p>
-        )}
-      </div>
+      {loading ? (
+        <p className="text-gray-600">Loading Departments...</p>) :
+        <div className="overflow-x-auto bg-white shadow-md rounded-xl border border-gray-300">
+          <DepartmentTable
+            departments={currentDepartments}
+            onDelete={handleDelete}
+            onEdit={handleEdit}
+          />
+          {departments.length === 0 && (
+            <p className="text-gray-500 text-sm text-center py-6">No departments found.</p>
+          )}
+        </div>
+      }
 
       {/* Department Form */}
       {showForm && (
