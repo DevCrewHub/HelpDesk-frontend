@@ -12,7 +12,7 @@ const Layout = () => {
   return (
     <div className="flex min-h-screen">
       <Sidebar />
-      <div className="flex md:ml-64 flex-grow pb-16 md:pb-0 overflow-x-scroll"><Outlet /></div>
+      <div className="flex md:ml-64 flex-grow pb-16 md:pb-0 overflow-x-auto"><Outlet /></div>
       {/* Mobile Bottom Nav (below md) */}
       <div className="fixed bottom-0 left-0 w-full text-[11px] bg-white border-t border-gray-200 flex justify-around items-center py-2 md:hidden z-40 shadow-sm">
         <button onClick={() => navigate("/dashboard")} className="flex flex-col items-center text-sm text-gray-700">
