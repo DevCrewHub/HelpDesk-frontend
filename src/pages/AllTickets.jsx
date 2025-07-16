@@ -103,7 +103,7 @@ const AllTickets = () => {
   const filteredTickets = applyClientSideFilters(tickets);
 
   return (
-    <div className="flex-grow px-6 py-2">
+    <div className="flex-grow px-6 py-2 overflow-x-auto">
       <div className="-mx-6 bg-gradient-to-b from-white to-gray-50 border-b border-gray-300 mt-2 pb-2 mb-6">
         <h1 className="text-2xl font-semibold tracking-tight pb-2 px-6">Tickets</h1>
       </div>
@@ -122,7 +122,7 @@ const AllTickets = () => {
       {loading || searching ? (
         <p className="text-gray-600">{loading ? "Loading tickets..." : "Searching..."}</p>
       ) : (
-        <div className="w-full overflow-x-auto">
+        <div className="w-full">
           {filteredTickets.length === 0 ? (
             <p className="text-gray-500 text-sm mt-4">No tickets match the current filters.</p>
           ) : (

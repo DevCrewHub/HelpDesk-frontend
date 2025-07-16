@@ -7,6 +7,7 @@ import Pagination from "../../components/Pagination";
 
 const AgentListPage = () => {
   const [agents, setAgents] = useState([]);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const userRole = localStorage.getItem("userRole");
 
@@ -25,10 +26,13 @@ const AgentListPage = () => {
 
   const fetchAgents = async () => {
     try {
+      setLoading(true);
       const res = await api.get("/admin/agents");
       setAgents(res.data);
     } catch (err) {
       console.error("Error fetching agents:", err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -49,7 +53,7 @@ const AgentListPage = () => {
   }, []);
 
   return (
-    <div className="flex-grow px-6 py-2">
+    <div className="flex-grow px-6 py-2 overflow-x-auto">
       {/* Page Header */}
       <div className="-mx-6 border-b border-gray-300 bg-gradient-to-b from-white to-gray-50 mt-2 pb-2 mb-6">
         <h1 className="text-2xl font-semibold tracking-tight  pb-2 px-6">All Agents</h1>
@@ -58,8 +62,10 @@ const AgentListPage = () => {
       {/* Subtext */}
       <p className="text-gray-600 text-sm mb-5 px-1">Manage support agents</p>
 
-      {/* Table Section */}
-      <div className="overflow-x-auto bg-white shadow-md rounded-xl border border-gray-300">
+      {/*table section*/}
+      {loading ? (
+        <p className="text-gray-600">Loading Agents...</p>) : 
+        <div className="overflow-x-auto bg-white shadow-md rounded-xl border border-gray-300">
         <table className="min-w-full table-auto text-sm text-left border-collapse">
           <thead className="bg-gray-100 border-b border-gray-300">
             <tr>
@@ -108,7 +114,8 @@ const AgentListPage = () => {
         {agents.length === 0 && (
           <p className="text-gray-500 text-sm text-center py-6">No agents found.</p>
         )}
-      </div>
+        </div>
+      }
       <Pagination
         currentPage={currentPage}
         totalPages={Math.ceil(agents.length / ITEMS_PER_PAGE)}
